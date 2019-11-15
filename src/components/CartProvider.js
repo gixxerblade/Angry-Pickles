@@ -65,9 +65,10 @@ const CartProvider = ({ children }) => {
 
   /** Increments item with `id` by `quantity`, which defaults to 0 */
   function add(id, quantity = 1) {
-    const currentItem = contents.find(item => item[0] === id)
+    const currentItem = contents.findIndex(item => item[0] === id)
     const currentQuantity = currentItem ? currentItem[1] : 0
     set(id, quantity + currentQuantity)
+    console.log(contents.map(([id, quantity]))
   }
 
   /** Removes item with `id` */

@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { navigate } from 'gatsby'
 import StripeCheckout from 'react-stripe-checkout'
 import { CartContext } from './CartProvider'
-import icon from '../images/gatsby-icon.png'
+import icon from '../images/ap_logo.png'
 
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext)
@@ -51,7 +51,7 @@ const Checkout = () => {
     <StripeCheckout
       token={onToken}
       stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-      name="gatsby-starter-stripe" // the pop-in header title
+      name="Angry Pickles" // the pop-in header title
       description={`${count} Items`} // the pop-in header subtitle
       image={icon} // the pop-in header image (default none)
       panelLabel="Pay" // prepended to the amount in the bottom pay button

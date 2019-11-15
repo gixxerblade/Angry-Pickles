@@ -6,7 +6,7 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `starter-stripe`,
+    title: `Angry Pickles`,
     description: `Stripe storefront starter for Gatsby`,
     author: `Brock McElroy <brockmcelroy.com>`
   },
@@ -30,7 +30,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+        icon: `src/images/ap_logo.png` // This path is relative to the root of the site.
       }
     },
     {
