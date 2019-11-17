@@ -20,7 +20,7 @@ The ProductsProvider component provides normalized Product and Sku data sourced 
    ```sh
    gatsby new <project-name> https://github.com/brxck/gatsby-starter-stripe
    ```
-
+   
 2. **Setup Stripe**
 
    Create your Products within Stripe. Each Product should have at least one Sku.
