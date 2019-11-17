@@ -74,3 +74,6 @@ yarn-error.log
 NOTES.md
 .netlify/state.json
 README.md
+
+# Local Netlify folder
+.netlify
