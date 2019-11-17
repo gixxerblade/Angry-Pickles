@@ -59,16 +59,18 @@ const CartProvider = ({ children }) => {
       } else {
         newState.push([id, quantity])
       }
+      console.log(state)
+      console.log(newState)
       return newState
+      
     })
   }
 
   /** Increments item with `id` by `quantity`, which defaults to 0 */
   function add(id, quantity = 1) {
-    const currentItem = contents.findIndex(item => item[0] === id)
-    const currentQuantity = currentItem ? currentItem[1] : 0
+    const currentItem = contents.find(item => item[0] === id)
+    const currentQuantity = currentItem ? currentItem[1] : 0;
     set(id, quantity + currentQuantity)
-    console.log(contents.map(([id, quantity]))
   }
 
   /** Removes item with `id` */
@@ -80,6 +82,7 @@ const CartProvider = ({ children }) => {
 
   /** Returns true if `quantity` of item with `id` is available for purchase */
   function available(id, quantity = 1) {
+    
     const sku = skus[id]
     if (!sku) {
       console.error(`Sku with id ${id} not found`)
