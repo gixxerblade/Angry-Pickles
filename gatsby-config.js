@@ -1,8 +1,8 @@
-var proxy = require('http-proxy-middleware')
+var proxy = require("http-proxy-middleware");
 
-require('dotenv').config({
+require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
-})
+});
 
 module.exports = {
   siteMetadata: {
@@ -36,10 +36,18 @@ module.exports = {
     {
       resolve: `gatsby-source-stripe`,
       options: {
-        objects: ['Product', 'Sku'],
+        objects: ["Product", "Sku"],
         secretKey: process.env.STRIPE_SECRET_KEY,
         downloadFiles: true,
         auth: false
+      }
+    },
+    {
+      resolve: "gatsby-plugin-web-font-loader",
+      options: {
+        google: {
+          families: ["Poppins", "sans-serif"]
+        }
       }
     }
   ],
@@ -47,13 +55,13 @@ module.exports = {
   // read more: https://www.gatsbyjs.org/docs/api-proxy/#advanced-proxying
   developMiddleware: app => {
     app.use(
-      '/.netlify/functions/',
+      "/.netlify/functions/",
       proxy({
-        target: 'http://localhost:9000',
+        target: "http://localhost:9000",
         pathRewrite: {
-          '/.netlify/functions/': ''
+          "/.netlify/functions/": ""
         }
       })
-    )
+    );
   }
-}
+};

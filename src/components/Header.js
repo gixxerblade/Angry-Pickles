@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+// eslint-disable-next-line import/no-duplicates
 import { Link } from "gatsby";
 import Cart from "./Cart";
 import styled from "styled-components";
 import Img from "gatsby-image";
+// eslint-disable-next-line import/no-duplicates
 import { useStaticQuery, graphql } from "gatsby";
+import Navbar from "./Navbar";
+
 const Header = ({ siteTitle }) => {
   const logo = useStaticQuery(graphql`
     query MyQuery {
@@ -21,14 +25,17 @@ const Header = ({ siteTitle }) => {
     <StyledHeader>
       <StyledHeaderDiv>
         <StyleLogoDiv>
-          <Img
-            fixed={logo.file.childImageSharp.fixed}
-            alt="Angry Pickle Logo"
-          />
+          <Link to="/">
+            <StyledImg
+              fixed={logo.file.childImageSharp.fixed}
+              alt="Angry Pickle Logo"
+            />
+          </Link>
           <StyledHeaderH1>
             <StyledH1Link to="/">Angry Pickles</StyledH1Link>
           </StyledHeaderH1>
         </StyleLogoDiv>
+        <Navbar />
         <Cart />
       </StyledHeaderDiv>
     </StyledHeader>
@@ -45,9 +52,17 @@ Header.defaultProps = {
 
 export default Header;
 
+const StyledImg = styled(Img)`
+  &:hover {
+    transition: 0.2s linear;
+    transform: scale(1.06);
+  }
+`;
 const StyledHeader = styled.header`
+  font-family: "Poppins", sans-serif;
+
   width: 100%;
-  height: 9rem;
+  height: 11rem;
   background-color: #000000;
 `;
 const StyledHeaderDiv = styled.div`
@@ -57,11 +72,16 @@ const StyledHeaderDiv = styled.div`
 `;
 const StyledHeaderH1 = styled.h1`
   margin: 2rem;
-  color: #fff;
+  color: #ebf2fa;
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    /* Styles */
+    text-align: center;
+    margin-top: 0;
+  }
 `;
 const StyledH1Link = styled(Link)`
   text-decoration: none;
-  color: #ffffff;
+  color: #ebf2fa;
   cursor: pointer;
   &:hover {
     color: #679436;

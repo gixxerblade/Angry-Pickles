@@ -37,7 +37,7 @@ const Cart = () => {
 export default Cart;
 const ActiveStyledShoppingCartDiv = styled.div`
   transition: 0.2s linear;
-  top: 5rem;
+  top: 7rem;
   position: fixed;
   width: 3rem;
   height: 3rem;
