@@ -1,17 +1,21 @@
 import React, { useContext } from 'react'
 import { ProductsContext } from './ProductsProvider'
 import ProductThumbnail from './ProductThumbnail'
-
+import styled from 'styled-components'
 const Items = () => {
   const { listProducts } = useContext(ProductsContext)
   const products = listProducts()
   return (
-    <div style={{ columnCount: 3 }}>
+    <StyledProductsDiv style={{ columnCount: 3 }}>
       {products.map(product => (
         <ProductThumbnail key={product.id} product={product} />
       ))}
-    </div>
+    </StyledProductsDiv>
   )
 }
 
 export default Items
+const StyledProductsDiv = styled.div `
+  font-family: "Poppins", sans-serif;
+
+`

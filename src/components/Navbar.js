@@ -18,14 +18,16 @@ const Navbar = () => {
       </StyledLi>
     );
   });
-  return <StyledNavbarUl>{linkList}</StyledNavbarUl>;
+  return (
+      <StyledNavbarUl>{linkList}</StyledNavbarUl>
+  );
 };
 export default Navbar;
 
 const StyledLi = styled.li`
   text-decoration: none;
   &:hover {
-    transition: .2s linear;
+    transition: 0.2s linear;
     transform: scale(1.1);
   }
 `;
