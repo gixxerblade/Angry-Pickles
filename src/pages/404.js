@@ -3,8 +3,10 @@ import { SadTear } from "@styled-icons/fa-solid/SadTear";
 import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import styled from "styled-components";
+// eslint-disable-next-line import/no-duplicates
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
+// eslint-disable-next-line import/no-duplicates
 import { Link } from "gatsby";
 const NotFoundPage = () => {
   const logo = useStaticQuery(graphql`

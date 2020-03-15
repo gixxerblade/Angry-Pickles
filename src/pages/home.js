@@ -7,7 +7,7 @@ import Products from "../components/Products";
 import {Router} from "@reach/router";
 const Home = () => (
   <Layout>
-    <SEO title="Home" keywords={[`Angry Pickles`, `Pickles`, `react`]} />
+    <SEO title="Home" keywords={[`Angry Pickles`, `Pickles`, `gourmet pickles`, `handmade`, `spicy`,`dill`,`kosher`,`gluten free`,`comfort food`,`power food`,`homemade`, `artisan` ]} />
     <Styledh2>Making small batches of pickles using fresh stuff</Styledh2>
     <Products />
   </Layout>
