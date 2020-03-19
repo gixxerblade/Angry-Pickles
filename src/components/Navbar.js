@@ -13,7 +13,7 @@ const Navbar = () => {
   const urls = links;
   const linkList = Object.entries(urls).map(([key, value]) => {
     return (
-      <StyledLi key={key.id}>
+      <StyledLi key={key}>
         <StyledNavbarLink to={value}>{key}</StyledNavbarLink>
       </StyledLi>
     );

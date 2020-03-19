@@ -24,11 +24,12 @@ const Layout = ({ children }) => (
             <Header siteTitle={data.site.siteMetadata.title} />
             <StyledLayoutDiv>
               <main>{children}</main>
-              <footer>
-                © {new Date().getFullYear()}, Built with
-                {` `}
-                <a href="https://www.gatsbyjs.org">Gatsby</a>
-              </footer>
+              <StyledFooter>
+                © {new Date().getFullYear()},{` `}
+                <StyleFooterA href="https://www.stephenclark.dev">
+                  Steve Clark
+                </StyleFooterA>
+              </StyledFooter>
             </StyledLayoutDiv>
           </CartProvider>
         </ProductsProvider>
@@ -46,7 +47,23 @@ export default Layout;
 const StyledLayoutDiv = styled.div`
   margin: 0 auto;
   max-width: 960px;
-  height: 100vh; !important
-  padding: 0px 1.0875rem 1.45rem;
+  height: 100vh;
+  !importantpadding: 0px 1.0875rem 1.45rem;
   padding-top: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+`;
+const StyledFooter = styled.footer`
+  width: 100%;
+  color: #000000;
+  height: 1.7rem;
+  font-family: "Poppins", sans-serif;
+`;
+const StyleFooterA = styled.a`
+  text-decoration: none;
+  color: #000000;
+  &:hover {
+    color: #679436;
+  }
 `;
