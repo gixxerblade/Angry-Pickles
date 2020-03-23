@@ -59,8 +59,8 @@ const CartProvider = ({ children }) => {
       } else {
         newState.push([id, quantity])
       }
-      console.log(state)
-      console.log(newState)
+      // console.log(state)
+      // console.log(newState)
       return newState
       
     })

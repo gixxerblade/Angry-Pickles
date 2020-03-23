@@ -1,22 +1,22 @@
-const path = require('path')
-const slug = require('slug')
+const path = require("path");
+const slug = require("slug");
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField } = actions;
 
   // Add slug for page generation.
-  if (node.internal.type === 'StripeSku') {
-    const value = slug(node.product.name, slug.defaults.modes['rfc3986'])
+  if (node.internal.type === "StripeSku") {
+    const value = slug(node.product.name, slug.defaults.modes["rfc3986"]);
     createNodeField({
       node,
-      name: 'slug',
+      name: "slug",
       value
-    })
+    });
   }
-}
+};
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   return graphql(`
     {
@@ -36,23 +36,34 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `).then(result => {
     if (result.errors) {
-      Promise.reject(result.errors)
+      Promise.reject(result.errors);
     }
 
     // Create product pages
-    const products = {}
+    const products = {};
 
     result.data.allStripeSku.edges.forEach(({ node }) => {
-      products[node.product.id] = node.fields.slug
-    })
+      products[node.product.id] = node.fields.slug;
+    });
 
-    const productTemplate = path.resolve('src/templates/ProductTemplate.js')
+    const productTemplate = path.resolve("src/templates/ProductTemplate.js");
     Object.entries(products).forEach(([id, slug]) => {
       createPage({
-        path: 'buy/' + slug,
+        path: "buy/" + slug,
         component: productTemplate,
         context: { id }
-      })
-    })
-  })
-}
+      });
+    });
+  });
+};
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions;
+  // Only update the `/order` page.
+  if (page.path.match(/^\/order/)) {
+    // page.matchPath is a special key that's used for matching pages
+    // with corresponding routes only on the client.
+    page.matchPath = "/order/*";
+    // Update the page.
+    createPage(page);
+  }
+};

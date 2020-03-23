@@ -1,11 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import { Router } from "@reach/router";
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
 import Policies from "./policies";
 import Updates from "./updates";
+import Order from "./order";
 const IndexPage = () => (
   <Router>
     <Home path="/" />
@@ -13,12 +13,8 @@ const IndexPage = () => (
     <Contact path="/contact" />
     <Policies path="/policies" />
     <Updates path="/updates" />
+    <Order path="/order" />
   </Router>
 );
 
 export default IndexPage;
-const Styledh2 = styled.h2`
-  font-family: "Poppins", sans-serif;
-  margin: 2rem;
-  text-align: center;
-`;

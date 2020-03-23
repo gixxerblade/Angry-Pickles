@@ -28,7 +28,7 @@ const Cart = () => {
         {cart.map(([sku, quantity]) => (
           <CartItem key={sku.id} sku={sku} quantity={quantity} />
         ))}
-        <Checkout />
+        {count === 0 ? "" : <Checkout />}
       </StyledCartDiv>
     </>
   );

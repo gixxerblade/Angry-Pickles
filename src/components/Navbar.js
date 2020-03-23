@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import Cart from './Cart'
 import styled from "styled-components";
 const links = {
   Home: "/",
