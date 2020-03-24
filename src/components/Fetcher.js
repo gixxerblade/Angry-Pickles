@@ -7,29 +7,13 @@ export const useFetch = (url, options) => {
     const fetchData = async () => {
       const response = await fetch(url, options);
       const data = await response.json();
-      const [item] = data;
-      setData(item);
+      const { data: order } = data;
+      setData(order);
       setLoading(false);
+      console.log("Fetch Data: ", order);
     };
     fetchData();
   }, []);
-  console.log({data});
   return { data, loading };
 };
 
-/* 
-  const updateProducts = async () => {
-    const { data, error } = await fetch('/.netlify/functions/skuList')
-      .then(response => response.json())
-      .catch(error => console.error(error))
-
-    if (error) {
-      console.error(error)
-    }
-
-    const [liveProducts, liveSkus] = processStripeData(data, products)
-    setProducts(liveProducts)
-    setSkus(liveSkus)
-  }
-
-*/
