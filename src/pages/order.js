@@ -3,7 +3,8 @@ import Layout from "../components/Layout";
 import Receipt from "../components/Receipt";
 import { useFetch } from "../components/Fetcher";
 import { UserContext } from "../components/UserContext";
-const Order = () => {
+import { any } from "prop-types";
+const Order = ({ location }) => {
   const query = location.search;
   const { data, loading } = useFetch(
     `/.netlify/functions/retrieve${query}`,
@@ -22,3 +23,7 @@ const Order = () => {
   );
 };
 export default Order;
+
+Order.propTypes = {
+  location: any.isRequired
+};
