@@ -15,7 +15,7 @@ const Order = ({ location }) => {
   return (
     <Layout>
       <h1>Thank you for your order</h1>
-      <h2>Your order number is: "{id}"</h2>
+      <h2>Order Summary for Order #{id}</h2>
       <UserContext.Provider value={{ data, loading }}>
         <Receipt />
       </UserContext.Provider>

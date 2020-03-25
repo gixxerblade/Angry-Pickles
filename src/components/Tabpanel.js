@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import {LockAlt} from "@styled-icons/boxicons-solid/LockAlt";
+import styled from "styled-components";
+import { LockAlt } from "@styled-icons/boxicons-solid/LockAlt";
+import { Visa } from "@styled-icons/remix-fill/Visa";
+import { CcMastercard } from "@styled-icons/fa-brands/CcMastercard";
+import { CcAmex } from "@styled-icons/fa-brands/CcAmex";
+import { CcDiscover } from "@styled-icons/fa-brands/CcDiscover";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -14,11 +21,11 @@ function TabPanel(props) {
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && <Box p={4}>{children}</Box>}
     </Typography>
   );
 }
@@ -31,26 +38,24 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`
   };
 }
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    height: 400
+    backgroundColor: theme.palette.background.paper
   },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`
+  bar: {
+    backgroundColor: "#679436"
   }
 }));
 
-export default function VerticalTabs() {
+export default function SimpleTabs() {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -58,45 +63,140 @@ export default function VerticalTabs() {
 
   return (
     <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-        <Tab label="Shipping" {...a11yProps(0)} />
-        <Tab label="Payment Options" {...a11yProps(1)} />
-        <Tab label="Returns & exchanges" {...a11yProps(2)} />
-        <Tab label="Frequently Asked Questions" {...a11yProps(3)} />
-      </Tabs>
+      <AppBar className={classes.bar} position="static">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="Shop Policies Tabs"
+          centered
+        >
+          <Tab label="Shipping" {...a11yProps(0)} />
+          <Tab label="Payment options" {...a11yProps(1)} />
+          <Tab label="Returns & exchanges" {...a11yProps(2)} />
+          <Tab label="Frequently asked questions" {...a11yProps(3)} />
+        </Tabs>
+      </AppBar>
       <TabPanel value={value} index={0}>
-        <h3>Processing time</h3>
+        <h2>Shipping Costs</h2>
+        <p>USPS Priority Mail is used for all shipments.</p>
+        <h2>Processing time</h2>
         <p>
           The time I need to prepare an order for shipping varies. For details,
-          see individual items.
+          see individual items. Generally, you can expect your items processed
+          to ship within 3–5 days.
         </p>
-        <h3>Estimated shipping times</h3>
-        <h4>North America: 3-5 business days</h4>
+        <h2>Estimated shipping times</h2>
+        <p>North America: 3-5 business days</p>
         <p>
           I'll do my best to meet these shipping estimates, but cannot guarantee
           them. Actual delivery time will depend on the shipping method you
-          choose. Customs and import taxes Buyers are responsible for any
-          customs and import taxes that may apply. I'm not responsible for
-          delays due to customs.
+          choose.
+        </p>
+        <h2>Customs and import taxes</h2>
+        <p>
+          Buyers are responsible for any customs and import taxes that may
+          apply. I'm not responsible for delays due to customs.
         </p>
       </TabPanel>
-      <TabPanel value={value} index={1}>        
-        <h3><LockAlt size="20" />&nbsp;Secure options</h3>
-        
+      <TabPanel value={value} index={1}>
+        <h3>
+          <LockAlt size="25" style={{ color: "#679436" }} />
+          Secure options
+        </h3>
+        <CCDiv>
+          <Visa size="70" />
+          <CcMastercard size="70" />
+          <CcAmex size="70" />
+          <CcDiscover size="70" />
+        </CCDiv>
+        <p>And many more...</p>
+        <p>
+          <span style={{ color: "#679436" }}>Angry Pickles</span>&nbsp;keeps
+          your payment information secure.&nbsp;
+          <span style={{ color: "#679436" }}>Angry Pickles</span>&nbsp;never
+          receives your credit card information. All credit card information is
+          processed in accordance with&nbsp;
+          <a
+            href="https://stripe.com/guides/pci-compliance"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Link to Stripe's Payment Card Industry Data Security Standards"
+          >
+            Payment Card Industry Data Security Standards (PCI DSS)
+          </a>
+        </p>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <h3>I don't accept returns, exchanges, or cancellations</h3>
+        <p>But please contact me if you have any problems with your order.</p>
       </TabPanel>
       <TabPanel value={value} index={3}>
-        Item Four
+        <h3>Sizing details</h3>
+        <p>All items are packed and sealed in 16 oz. mason jars.</p>
+        <h3>Care instructions</h3>
+        <p>
+          Unopened pickles are good for up to one year. Once opened, refrigerate
+          and eat within 2 weeks.
+        </p>
+        <h3>Wholesale availability</h3>
+        <p>
+          Please contact me at sales@angrypickles.com for wholesale
+          opportunities.
+        </p>
+        <h3>Shipment to P.O. boxes or APO/FPO addresses</h3>
+        <p>
+          Angry Pickles ships to addresses within the U.S., U.S. Territories,
+          and APO/FPO/DPO addresses.
+        </p>
+        <h3>Damages</h3>
+        <p>
+          We understand that damage can occur from time to time. We do our best
+          to ensure the packages are protected. If for any reason you package is
+          damaged during shipment, please take a photo of the damaged box before
+          it is open and a picture of the damaged item after you have opened it
+          as soon as possible and let us know and we will send you a new jar.
+          Angry Pickles is not liable for any products lost during shipping. If
+          you received your order damaged, please contact us.
+        </p>
+        <h3>Are your pickles gluten free?</h3>
+        <p>
+          A pickle is a cucumber that has been soaked in a briny solution to
+          make it sour. Whether pickles are gluten free is sometimes questioned
+          because they are made with vinegar and the safety of vinegar has been
+          questioned in the past. The vinegar we use is distilled and is gluten
+          free so the pickles are too.&nbsp;<br/>
+          <a
+            href="https://www.beyondceliac.org/gluten-free-diet/is-it-gluten-free/vinegar/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Link to article about vinegar gluten free"
+          >
+            Link to article about Vinegar and it's gluten free qualities
+          </a>
+        </p>
+        <h3>Do you offer local pickup?</h3>
+        <p>
+          Yes I do for any customers within <a href="https://www.onslowcountync.gov/" target="_blank"
+            rel="noreferrer"
+            aria-label="Link to Onslow County website">Onslow County</a>. Please contact me for
+          local pickup. We will then arrange a meeting place so you can enjoy
+          your pickles.
+        </p>
+        <h3>Anymore Questions?</h3>
+        <p>Please email me at <a href="mailto:sales@angrypickles.com">sales@angrypickles.com</a></p>
       </TabPanel>
     </div>
   );
 }
+const CCDiv = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  > * {
+    margin: 0.5rem;
+    &:hover {
+      color: #679436;
+      transform: scale(1.1);
+    }
+  }
+`;
