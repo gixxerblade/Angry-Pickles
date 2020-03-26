@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import Img from "gatsby-image";
 import styled from "styled-components";
+
 const ProductThumbnail = ({ product }) => {
   return (
     <InvoiceBox key={product.id} style={{ breakInside: "avoid" }}>
@@ -31,7 +32,8 @@ ProductThumbnail.propTypes = {
 export default ProductThumbnail;
 
 const InvoiceBox = styled.div`
-  max-width: 400px;
+  width: 300px;
+  height: 300px;
   margin: auto;
   padding: 10px;
   border: 1px solid #eee;
@@ -47,6 +49,7 @@ const StyledProductNamePrice = styled.div`
   font-weight: 600;
   text-align: center;
   margin-top: 0.5rem;
+  white-space: normal;
 `;
 const StyledProductContainer = styled.div`
   max-width: 250;

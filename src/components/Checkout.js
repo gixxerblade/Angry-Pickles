@@ -1,14 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { navigate } from "gatsby";
 import StripeCheckout from "react-stripe-checkout";
 import { CartContext } from "./CartProvider";
 import icon from "../images/ap_logo.png";
-import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
-  useEffect(() => {
-    loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY);
-  }, []);
   const { cart, count, total } = useContext(CartContext);
   const onToken = async (token, addresses) => {
     const items = cart.map(([sku, quantity]) => ({

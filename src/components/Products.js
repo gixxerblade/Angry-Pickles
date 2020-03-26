@@ -1,21 +1,23 @@
-import React, { useContext } from 'react'
-import { ProductsContext } from './ProductsProvider'
-import ProductThumbnail from './ProductThumbnail'
-import styled from 'styled-components'
+import React, { useContext } from "react";
+import { ProductsContext } from "./ProductsProvider";
+import ProductThumbnail from "./ProductThumbnail";
+import styled from "styled-components";
 const Items = () => {
-  const { listProducts } = useContext(ProductsContext)
-  const products = listProducts()
+  const { listProducts } = useContext(ProductsContext);
+  const products = listProducts();
   return (
-    <StyledProductsDiv style={{ columnCount: 3 }}>
+    <StyledProductsDiv>
       {products.map(product => (
         <ProductThumbnail key={product.id} product={product} />
       ))}
     </StyledProductsDiv>
-  )
-}
+  );
+};
 
-export default Items
-const StyledProductsDiv = styled.div `
+export default Items;
+const StyledProductsDiv = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   font-family: "Poppins", sans-serif;
-
-`
+`;
