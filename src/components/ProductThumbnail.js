@@ -1,45 +1,62 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
-import Img from 'gatsby-image'
-
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "gatsby";
+import Img from "gatsby-image";
+import styled from "styled-components";
 const ProductThumbnail = ({ product }) => {
   return (
-    <div key={product.id} style={{ breakInside: 'avoid' }}>
-      <Link to={`/buy/${product.slug}`} style={{ textDecoration: 'none' }}>
-        <div
-          style={{
-            maxWidth: 250,
-            flex: '1 1 auto',
-            margin: '0 2rem 3rem'
-          }}
-        >
+    <InvoiceBox key={product.id} style={{ breakInside: "avoid" }}>
+      <StyledLink to={`/buy/${product.slug}`}>
+        <StyledProductContainer>
           {product.localFiles && (
-            <Img
+            <StyledProductThumb
               fluid={product.localFiles[0].childImageSharp.fluid}
               alt={product.name}
             />
           )}
-          <div
-            style={{
-              fontWeight: 'bold',
-              textAlign: 'center',
-              marginTop: '0.5rem'
-            }}
-          >
-            {product.name}
-          </div>
-          <div style={{ textAlign: 'center' }}>
+          <StyledProductNamePrice>{product.name}</StyledProductNamePrice>
+          <StyledProductNamePrice>
             ${product.skus[0].price / 100}
-          </div>
-        </div>
-      </Link>
-    </div>
-  )
-}
+          </StyledProductNamePrice>
+        </StyledProductContainer>
+      </StyledLink>
+    </InvoiceBox>
+  );
+};
 
 ProductThumbnail.propTypes = {
   product: PropTypes.object.isRequired
-}
+};
 
-export default ProductThumbnail
+export default ProductThumbnail;
+
+const InvoiceBox = styled.div`
+  max-width: 400px;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  color: #555;
+  border-radius: 1em;
+`;
+
+const StyledProductNamePrice = styled.div`
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.5rem;
+`;
+const StyledProductContainer = styled.div`
+  max-width: 250;
+  flex: 1 1 auto;
+  margin: 0 2rem 0rem;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const StyledProductThumb = styled(Img)`
+  border-radius: 1rem;
+`;

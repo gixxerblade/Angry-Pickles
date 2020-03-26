@@ -6,9 +6,11 @@ import Contact from "./contact";
 import Policies from "./policies";
 import Updates from "./updates";
 import Order from "./order";
+import Splash from "./splash";
 const IndexPage = () => (
   <Router>
-    <Home path="/" />
+    <Splash path="/" />
+    <Home path="/home" />
     <About path="/about" />
     <Contact path="/contact" />
     <Policies path="/policies" />

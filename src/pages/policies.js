@@ -21,7 +21,7 @@ const Policies = () => {
     <Layout>
       <br />
       <StyledDiv>
-        <Link to="/">
+        <Link to="/home">
           <StyledImg
             fixed={logo.file.childImageSharp.fixed}
             alt="Angry Pickle Logo"

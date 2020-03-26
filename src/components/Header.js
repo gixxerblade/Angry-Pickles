@@ -25,14 +25,14 @@ const Header = ({ siteTitle }) => {
     <StyledHeader>
       <StyledHeaderDiv>
         <StyleLogoDiv>
-          <Link to="/">
+          <Link to="/home">
             <StyledImg
               fixed={logo.file.childImageSharp.fixed}
               alt="Angry Pickle Logo"
             />
           </Link>
           <StyledHeaderH1>
-            <StyledH1Link to="/">Angry Pickles</StyledH1Link>
+            <StyledH1Link to="/home">Angry Pickles</StyledH1Link>
           </StyledHeaderH1>
         </StyleLogoDiv>
         <Navbar />

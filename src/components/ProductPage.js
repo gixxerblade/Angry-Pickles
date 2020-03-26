@@ -23,7 +23,7 @@ const ProductPage = ({ productId }) => {
       <div style={{textAlign:"center",fontWeight:"600"}} >{product.caption}</div>
       <br style={{margin:1}} />
       <div style={{ textAlign: 'justify' }}>{product.description}</div>
-      <StyledArrow to='/' className="goback"><ArrowBack size="45"/>Go Home</StyledArrow>
+      <StyledArrow to='/home' className="goback"><ArrowBack size="45"/>Go Home</StyledArrow>
       <button
         style={{ margin: '2rem auto' }}
         onClick={() => {

@@ -7,14 +7,13 @@ import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext);
-  const stripePromise = loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY);
   const onToken = async (token, addresses) => {
     const items = cart.map(([sku, quantity]) => ({
       type: "sku",
       parent: sku.id,
       quantity
     }));
-
+    loadStripe(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY)
     let response;
     try {
       response = await fetch("/.netlify/functions/orderCreate", {
@@ -61,7 +60,6 @@ const Checkout = () => {
       billingAddress
       zipCode
       allowRememberMe
-      stripePromise={stripePromise}
     >
       <button>Checkout for ${total / 100}</button>
     </StripeCheckout>

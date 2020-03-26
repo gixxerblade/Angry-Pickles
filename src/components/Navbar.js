@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import Cart from './Cart'
 import styled from "styled-components";
 const links = {
-  Home: "/",
+  Home: "/home",
   About: "/about",
   "Shop Policies": "/policies",
   Updates: "/updates",
