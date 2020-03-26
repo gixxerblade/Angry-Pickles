@@ -41,15 +41,15 @@ const ReceiptTable = () => {
                   </TableCell>
                   <TableCell align="center">{item.quantity}</TableCell>
                   <TableCell align="center">
-                    ${item.amount / 100}&nbsp;
+                    ${(item.amount / 100).toFixed(2)}&nbsp;
                   </TableCell>
                   {item.quantity ? (
                     <TableCell align="center">
-                      ${(item.amount / 100) * item.quantity}&nbsp;
+                      ${((item.amount / 100) * item.quantity).toFixed(2)}&nbsp;
                     </TableCell>
                   ) : (
                     <TableCell align="center">
-                      ${item.amount / 100}&nbsp;
+                      ${(item.amount / 100).toFixed(2)}&nbsp;
                     </TableCell>
                   )}
                 </TableRow>
@@ -57,7 +57,8 @@ const ReceiptTable = () => {
             </TableBody>
           </Table>
           <h4 style={{ textAlign: "right" }}>
-            Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${data.amount / 100}
+            Total:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$
+            {(data.amount / 100).toFixed(2)}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </h4>
         </TableContainer>
