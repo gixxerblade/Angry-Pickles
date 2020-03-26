@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import BackGroundSection from "../components/BackgroundSection";
 import styled from "styled-components";
-import { Stripe } from "@stripe/stripe-js";
 
 const Splash = () => {
-  useEffect(() => {
-    window.Stripe.setPublishableKey(process.env.GATSBY_STRIPE_PUBLISHABLE_KEY);
-  }, []);
-
   return (
     <>
       <BackGroundSection>
