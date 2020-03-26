@@ -1,8 +1,8 @@
-import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
-import styled from 'styled-components'
+import React from "react";
+import { graphql, useStaticQuery } from "gatsby";
+import styled from "styled-components";
 
-import BackgroundImage from 'gatsby-background-image'
+import BackgroundImage from "gatsby-background-image";
 
 /**
  * In this functional component a fullscreen <BackgroundImage />  is created.
@@ -24,10 +24,10 @@ const FullBackground = ({ className, children }) => {
         }
       }
     `
-  )
+  );
 
   // Single Image Data
-  const imageData = desktop.childImageSharp.fluid
+  const imageData = desktop.childImageSharp.fluid;
 
   return (
     <StyledFullScreenWrapper>
@@ -36,7 +36,7 @@ const FullBackground = ({ className, children }) => {
         className={className}
         fluid={imageData}
         backgroundColor={`rgba(189, 210, 166, 1)`}
-        title="Fullscreen Background"
+        title="Angry Pickles"
         id="fullscreenbg"
         role="img"
         aria-label="Fullscreen Background"
@@ -45,8 +45,8 @@ const FullBackground = ({ className, children }) => {
         {children}
       </BackgroundImage>
     </StyledFullScreenWrapper>
-  )
-}
+  );
+};
 
 const StyledFullBackground = styled(FullBackground)`
   width: 100%;
@@ -56,12 +56,12 @@ const StyledFullBackground = styled(FullBackground)`
   justify-content: center;
   overflow: hidden;
   background-size: contain;
-`
+`;
 const StyledFullScreenWrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
   overflow: hidden;
-`
+`;
 
-export default StyledFullBackground
+export default StyledFullBackground;
