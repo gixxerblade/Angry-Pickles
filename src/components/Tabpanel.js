@@ -12,7 +12,7 @@ import { Visa } from "@styled-icons/remix-fill/Visa";
 import { CcMastercard } from "@styled-icons/fa-brands/CcMastercard";
 import { CcAmex } from "@styled-icons/fa-brands/CcAmex";
 import { CcDiscover } from "@styled-icons/fa-brands/CcDiscover";
-
+import {CcDinersClub} from "@styled-icons/fa-brands/CcDinersClub"
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -101,21 +101,19 @@ export default function SimpleTabs() {
       <TabPanel value={value} index={1}>
         <h3>
           <LockAlt size="25" style={{ color: "#679436" }} />
-          Secure options
+          &nbsp;<u>Secure options</u>
         </h3>
         <CCDiv>
-          <Visa size="70" />
-          <CcMastercard size="70" />
-          <CcAmex size="70" />
-          <CcDiscover size="70" />
+          <Visa title="Visa" size="70" />
+          <CcMastercard title="Master Card" size="70" />
+          <CcAmex title="American Express" size="70" />
+          <CcDiscover title="Discover" size="70" />
+          <CcDinersClub title="Diners Club" size="70"/>
         </CCDiv>
-        <p>And many more...</p>
         <p>
-          <span style={{ color: "#679436" }}>Angry Pickles</span>&nbsp;keeps
-          your payment information secure.&nbsp;
-          <span style={{ color: "#679436" }}>Angry Pickles</span>&nbsp;never
-          receives your credit card information. All credit card information is
-          processed in accordance with&nbsp;
+          Angry Pickles keeps your payment information secure.&nbsp;
+          Angry Pickles never receives your credit card information. All credit card information is
+          processed in accordance with&nbsp; 
           <a
             href="https://stripe.com/guides/pci-compliance"
             target="_blank"
@@ -123,7 +121,7 @@ export default function SimpleTabs() {
             aria-label="Link to Stripe's Payment Card Industry Data Security Standards"
           >
             Payment Card Industry Data Security Standards (PCI DSS)
-          </a>
+          </a>&nbsp;through Stripe
         </p>
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -132,7 +130,7 @@ export default function SimpleTabs() {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <h3>Sizing details</h3>
-        <p>All items are packed and sealed in 16 oz. mason jars.</p>
+        <p>All items are packed and sealed in 16 oz. mason jars. One jar of pickles will fit in a 6" x 6" X 6" box and weighs approximately 18 ounces.</p>
         <h3>Care instructions</h3>
         <p>
           Unopened pickles are good for up to one year. Once opened, refrigerate

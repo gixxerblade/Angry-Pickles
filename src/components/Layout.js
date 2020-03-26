@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
             <StyledLayoutDiv>
               <main>{children}</main>
               <StyledFooter>
-                © {new Date().getFullYear()},{` `}
+                ©{new Date().getFullYear()}&nbsp;
                 <StyleFooterA href="https://www.stephenclark.dev">
                   Steve Clark
                 </StyleFooterA>
@@ -58,7 +58,9 @@ const StyledFooter = styled.footer`
   width: 100%;
   color: #000000;
   height: 1.7rem;
+  text-align: center;
   font-family: "Poppins", sans-serif;
+  margin-top: 1rem;
 `;
 const StyleFooterA = styled.a`
   text-decoration: none;

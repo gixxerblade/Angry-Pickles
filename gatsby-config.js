@@ -7,8 +7,8 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Angry Pickles`,
-    description: `Stripe storefront starter for Gatsby`,
-    author: `Brock McElroy <brockmcelroy.com>`
+    description: `Making small batches of pickles using fresh stuff`,
+    author: `Stephen Clark <stephenclark.dev>`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
