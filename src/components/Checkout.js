@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 import StripeCheckout from "react-stripe-checkout";
 import { CartContext } from "./CartProvider";
 import icon from "../images/ap_logo.png";
-import SEO from './SEO'
+import SEO from "./SEO";
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext);
   const onToken = async (token, addresses) => {
@@ -46,7 +46,7 @@ const Checkout = () => {
   return (
     <StripeCheckout
       token={onToken}
-      stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
+      stripeKey="pk_test_UkXkeSoYvBrRwirxwzNfZYhj00m81HqFNP"
       name="Angry Pickles" // the pop-in header title
       description={`${count} Items`} // the pop-in header subtitle
       image={icon} // the pop-in header image (default none)
@@ -59,7 +59,8 @@ const Checkout = () => {
       zipCode
       allowRememberMe
     >
-      <button>Checkout for ${total / 100}</button><SEO/>
+      <button>Checkout for ${total / 100}</button>
+      <SEO />
     </StripeCheckout>
   );
 };
