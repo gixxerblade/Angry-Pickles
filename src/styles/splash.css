@@ -1,0 +1,10 @@
+.splash-h1 {
+  text-decoration: none;
+  color: white;
+  font-size: 4rem;
+  font-family: "Poppins", sans-serif;
+}
+.splash-h1:hover {
+  transform: scale(1.1);
+  color: #fffa00;
+}
