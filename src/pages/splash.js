@@ -7,9 +7,7 @@ const Splash = () => {
   return (
     <>
       <BackGroundSection>
-        <StyLink to="/home">
-          <StyledH1>Enter</StyledH1>
-        </StyLink>
+        <StyLink to="/home">Enter</StyLink>
       </BackGroundSection>
     </>
   );
@@ -28,4 +26,10 @@ const StyledH1 = styled.h1`
 `;
 const StyLink = styled(Link)`
   text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  font-size: 4rem;
+  &:hover {
+    transform: scale(1.1);
+    color: #fffa00;}
 `;
