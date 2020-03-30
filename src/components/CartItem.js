@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { CartContext } from "./CartProvider";
 import { Trash } from "@styled-icons/boxicons-solid/Trash";
-import styled from "styled-components";
 const CartItem = ({ sku, quantity }) => {
   const { remove } = useContext(CartContext);
   return (
