@@ -70,7 +70,7 @@ export default Receipt;
 
 Receipt.propTypes = {
   data: any,
-  loading: Boolean
+  loading: null
 };
 
 const InvoiceBox = styled.div`
@@ -111,19 +111,6 @@ const TopHeaderShape = styled.div`
   border-bottom: 1px solid black;
 `;
 
-const BottmHeaderShape = styled.div`
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  height: 15%;
-  background-image: linear-gradient(#c5e6a6, #bdd2a6);
-  transform: skewY(3deg);
-  transform-origin: top right;
-`;
 const GetDate = styled.div`
   position: absolute;
   font-family: "Poppins", sans-serif;
