@@ -8,12 +8,16 @@ export const useFetch = (url, options) => {
     const fetchData = async () => {
       const response = await fetch(url, options);
       const data = await response.json();
+      const type = await response.ok;
       const { data: order } = data;
-      if (isSubscribed) {
+      if (isSubscribed && type===true) {
         setData(order);
         setLoading(false);
-        console.log(response);
+        console.log("JSON: ", type);
         console.log("Fetch Data: ", order);
+      }
+      else{
+        throw new Error("HTTP status " + response.status);
       }
     };
     fetchData();
