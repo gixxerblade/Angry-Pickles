@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 import StripeCheckout from "react-stripe-checkout";
 import { CartContext } from "./CartProvider";
 import icon from "../images/ap_logo.png";
-
+import SEO from './SEO'
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext);
   const onToken = async (token, addresses) => {
@@ -59,7 +59,7 @@ const Checkout = () => {
       zipCode
       allowRememberMe
     >
-      <button>Checkout for ${total / 100}</button>
+      <button>Checkout for ${total / 100}</button><SEO/>
     </StripeCheckout>
   );
 };
