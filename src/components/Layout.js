@@ -6,6 +6,7 @@ import ProductsProvider from "./ProductsProvider";
 import CartProvider from "./CartProvider";
 import "./layout.css";
 import styled from "styled-components";
+import SEO from "./SEO";
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
@@ -21,6 +22,23 @@ const Layout = ({ children }) => (
       <>
         <ProductsProvider>
           <CartProvider>
+            <SEO
+              title="Home"
+              keywords={[
+                `Angry Pickles`,
+                `Pickles`,
+                `gourmet pickles`,
+                `handmade`,
+                `spicy`,
+                `dill`,
+                `kosher`,
+                `gluten free`,
+                `comfort food`,
+                `power food`,
+                `homemade`,
+                `artisan`
+              ]}
+            />
             <Header siteTitle={data.site.siteMetadata.title} />
             <StyledLayoutDiv>
               <main>{children}</main>

@@ -3,10 +3,8 @@ import { navigate } from "gatsby";
 import StripeCheckout from "react-stripe-checkout";
 import { CartContext } from "./CartProvider";
 import icon from "../images/ap_logo.png";
-import { loadStripe } from "@stripe/stripe-js"
 
 const Checkout = () => {
-
   const { cart, count, total } = useContext(CartContext);
   const onToken = async (token, addresses) => {
     const items = cart.map(([sku, quantity]) => ({
