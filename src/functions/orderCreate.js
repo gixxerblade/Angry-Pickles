@@ -1,19 +1,20 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const { STRIPE_SECRET_KEY } = process.env;
+const stripe = require("stripe")(STRIPE_SECRET_KEY);
 
 /** Respond with status code 500 and error message */
 function errorResponse(err, callback) {
   const response = {
     headers: {
-      'Access-Control-Allow-Origin': '*'
+      "Access-Control-Allow-Origin": "*"
     },
     statusCode: 500,
     body: JSON.stringify({
       error: err
     })
-  }
+  };
 
-  if (typeof callback === 'function') {
-    callback(null, response)
+  if (typeof callback === "function") {
+    callback(null, response);
   }
 }
 
@@ -21,9 +22,9 @@ function errorResponse(err, callback) {
  * Captures payment token and creates order.
  */
 module.exports.handler = async (event, context, callback) => {
-  const requestBody = JSON.parse(event.body)
-  const { id, email } = requestBody.token
-  const { currency, items, shipping } = requestBody.order
+  const requestBody = JSON.parse(event.body);
+  const { id, email } = requestBody.token;
+  const { currency, items, shipping } = requestBody.order;
 
   // Create order
   try {
@@ -31,28 +32,27 @@ module.exports.handler = async (event, context, callback) => {
       currency,
       items,
       shipping,
-      email,
+      email
     });
 
     // Charge order
     stripe.orders.pay(order.id, {
-      source: id,
-    })
+      source: id
+    });
 
     const response = {
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        "Access-Control-Allow-Origin": "*"
       },
       statusCode: 200,
       body: JSON.stringify({
         data: order,
-        message: 'Order placed successfully!',
-      }),
-    }
+        message: "Order placed successfully!"
+      })
+    };
 
-    callback(null, response)
-
+    callback(null, response);
   } catch (e) {
-    errorResponse(e, callback)
+    errorResponse(e, callback);
   }
-}
+};
