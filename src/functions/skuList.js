@@ -1,6 +1,5 @@
-const { STRIPE_SECRET_KEY } = process.env;
 
-const stripe = require('stripe')(STRIPE_SECRET_KEY)
+const stripe = require('stripe')(process.env.GATSBY_STRIPE_SECRET_KEY)
 
 /**
  * Returns list of skus with product fields expanded.

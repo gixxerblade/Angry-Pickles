@@ -7,6 +7,7 @@ import Policies from "./policies";
 import Updates from "./updates";
 import Order from "./order";
 import Splash from "./splash";
+import '@stripe/stripe-js'
 const IndexPage = () => (
   <Router>
     <Splash path="/" />

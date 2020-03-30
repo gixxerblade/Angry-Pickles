@@ -1,6 +1,5 @@
-const { STRIPE_SECRET_KEY } = process.env;
 
-var stripe = require("stripe")(STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.GATSBY_STRIPE_SECRET_KEY)
 
 module.exports.handler = async (event, context, callback) => {
   const query = event.queryStringParameters;
