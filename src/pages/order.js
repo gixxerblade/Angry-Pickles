@@ -7,10 +7,9 @@ import { any } from "prop-types";
 import styled from "styled-components";
 const Order = ({ location }) => {
   const query = location.search;
-  const { data, loading } = useFetch(
-    `/.netlify/functions/retrieve${query}`,
-    {}
-  );
+  const { data, loading } = useFetch(`/.netlify/functions/retrieve${query}`, {
+    method: "GET"
+  });
 
   /*
   In case use of plain text "id" is needed. 

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { any } from "prop-types";
+import { any, string, bool } from "prop-types";
 import { UserContext } from "../components/UserContext";
 import styled from "styled-components";
 import Img from "gatsby-image";
 import { useStaticQuery, graphql } from "gatsby";
-import ReceiptTable from "./ReceiptTable";
+import ReceiptTable from "./ReceiptTable.js";
 const Receipt = () => {
   const [date, setDate] = useState("");
   useEffect(() => {
@@ -70,7 +70,7 @@ export default Receipt;
 
 Receipt.propTypes = {
   data: any,
-  loading: null
+  loading: bool
 };
 
 const InvoiceBox = styled.div`
