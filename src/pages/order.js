@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Layout from "../components/Layout";
 import Receipt from "../components/Receipt";
 import { useFetch } from "../components/Fetcher";
@@ -8,7 +8,8 @@ import styled from "styled-components";
 const Order = ({ location }) => {
   const query = location.search;
   const { data, loading } = useFetch(`/.netlify/functions/retrieve${query}`, {
-    method: "GET"
+    method: "GET",
+    headers: { Accept: "application/json" }
   });
 
   /*
