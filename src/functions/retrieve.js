@@ -5,7 +5,6 @@ module.exports.handler = async (event, context, callback) => {
   const id = query.id;
   stripe.orders.retrieve(id, (err, order) => {
     let statusCode, body;
-
     if (err) {
       statusCode = !200;
       body = JSON.stringify({
@@ -19,9 +18,7 @@ module.exports.handler = async (event, context, callback) => {
     }
     const response = {
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Credentials": true
+        "Access-Control-Allow-Origin": "*"
       },
       statusCode,
       body
