@@ -21,6 +21,7 @@ module.exports.handler = async (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*"
       },
+      queryStringParameters: { id },
       statusCode,
       body
     };
