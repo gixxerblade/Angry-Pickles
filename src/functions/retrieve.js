@@ -21,11 +21,13 @@ module.exports.handler = async (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*"
       },
-      queryStringParameters: { id },
+      queryStringParameters: { id: id },
       statusCode,
       body
     };
     console.log("Order Data: ", order);
+    console.log("ID: ", id);
+    console.log("Error: ", err);
     callback(null, response);
   });
 };
