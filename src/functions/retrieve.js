@@ -7,7 +7,7 @@ module.exports.handler = async (event, context, callback) => {
     let statusCode, body;
 
     if (err) {
-      statusCode = 500;
+      statusCode = !200;
       body = JSON.stringify({
         error: err.message
       });
