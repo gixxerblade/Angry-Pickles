@@ -3,6 +3,7 @@ const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
 module.exports.handler = async (event, context, callback) => {
   const query = event.queryStringParameters;
   const id = query.id;
+
   stripe.orders.retrieve(id, (err, order) => {
     let statusCode, body;
     if (err) {
@@ -23,6 +24,7 @@ module.exports.handler = async (event, context, callback) => {
       statusCode,
       body
     };
+    console.log("Order Data: ", order);
     callback(null, response);
   });
 };
