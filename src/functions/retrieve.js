@@ -1,10 +1,9 @@
 const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
 
 module.exports.handler = async (event, context, callback) => {
-  const query = event.queryStringParameters;
+  const query = event.queryStringParameters.id;
   const id = query.id;
-
-  stripe.orders.retrieve(id, (err, order) => {
+  stripe.orders.retrieve(query, (err, order) => {
     let statusCode, body;
     if (err) {
       statusCode = !200;
@@ -21,9 +20,8 @@ module.exports.handler = async (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*"
       },
-      queryStringParameters: { id: id },
       statusCode,
-      body
+      body,
     };
     console.log("Order Data: ", order);
     console.log("ID: ", id);
