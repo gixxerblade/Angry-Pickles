@@ -40,7 +40,8 @@ const Checkout = () => {
 
     localStorage.setItem("cart", "{}");
     // Redirect to order confirmation page
-    navigate(`/order/?id=${response.data.id}`);
+    navigate(`/order?id=${response.data.id}`);
+    console.log(response.data.id)
   };
   return (
     <StripeCheckout

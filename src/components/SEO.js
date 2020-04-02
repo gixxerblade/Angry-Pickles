@@ -62,9 +62,10 @@ function SEO({ description, lang, meta, keywords, title }) {
           >
             <script src="https://js.stripe.com/v2/"></script>
             <script src="https://js.stripe.com/v3/"></script>
-            <script>
+            {/*             <script>
               Stripe.setPublishableKey('pk_test_UkXkeSoYvBrRwirxwzNfZYhj00m81HqFNP');
             </script>
+ */}{" "}
           </Helmet>
         );
       }}

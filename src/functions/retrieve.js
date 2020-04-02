@@ -1,8 +1,13 @@
 const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
 
+/*
+ * Retrieve an order by order id.
+ */
 module.exports.handler = async (event, context, callback) => {
   const query = event.queryStringParameters.id;
-  const id = query.id;
+  /*   
+const id = query.id;
+ */
   stripe.orders.retrieve(query, (err, order) => {
     let statusCode, body;
     if (err) {
@@ -21,10 +26,9 @@ module.exports.handler = async (event, context, callback) => {
         "Access-Control-Allow-Origin": "*"
       },
       statusCode,
-      body,
+      body
     };
-    console.log("Order Data: ", order);
-    console.log("ID: ", id);
+    console.log("ID: ", query);
     console.log("Error: ", err);
     callback(null, response);
   });
