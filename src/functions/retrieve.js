@@ -22,7 +22,9 @@ const errorResponse = (err, callback) => {
 module.exports.handler = async (event, context, callback) => {
   const query = event.queryStringParameters.id;
   try {
-    const order = await stripe.orders.retrieve(query);
+    const order = await stripe.orders
+      .retrieve(query)
+      .catch(e => console.log(e));
     const response = {
       headers: {
         "Access-Control-Allow-Origin": "*"
@@ -35,7 +37,7 @@ module.exports.handler = async (event, context, callback) => {
     };
     console.log("Type ID: ", typeof query);
     console.log("ID: ", `${query}`);
-    callback(null, response);
+    return response;
   } catch (e) {
     errorResponse(e, callback);
   }
