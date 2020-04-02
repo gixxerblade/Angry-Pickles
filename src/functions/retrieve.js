@@ -8,7 +8,7 @@ module.exports.handler = async (event, context, callback) => {
   /*   
 const id = query.id;
  */
-  stripe.orders.retrieve(query, (err, order) => {
+  return stripe.orders.retrieve(`${query}`, (err, order) => {
     let statusCode, body;
     if (err) {
       statusCode = !200;
@@ -28,8 +28,13 @@ const id = query.id;
       statusCode,
       body
     };
-    console.log("ID: ", query);
+    console.log("Type ID: ", typeof query);
+    console.log("ID: ", `${query}`);
+    console.log(
+      "event.queryStringParameters.id: ",
+      event.queryStringParameters.id
+    );
     console.log("Error: ", err);
-    callback(null, response);
+     callback(null, response);
   });
 };
