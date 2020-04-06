@@ -7,7 +7,7 @@ const Items = () => {
   const products = listProducts();
   return (
     <StyledProductsDiv>
-      {products.map(product => (
+      {products.map((product) => (
         <ProductThumbnail key={product.id} product={product} />
       ))}
     </StyledProductsDiv>
