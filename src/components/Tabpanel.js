@@ -12,7 +12,8 @@ import { Visa } from "@styled-icons/remix-fill/Visa";
 import { CcMastercard } from "@styled-icons/fa-brands/CcMastercard";
 import { CcAmex } from "@styled-icons/fa-brands/CcAmex";
 import { CcDiscover } from "@styled-icons/fa-brands/CcDiscover";
-import {CcDinersClub} from "@styled-icons/fa-brands/CcDinersClub"
+import { CcDinersClub } from "@styled-icons/fa-brands/CcDinersClub";
+import { Link } from "gatsby";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -22,7 +23,8 @@ function TabPanel(props) {
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}      {...other}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
     >
       {value === index && <Box p={4}>{children}</Box>}
     </Typography>
@@ -38,8 +40,9 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };}
+    "aria-controls": `full-width-tabpanel-${index}`
+  };
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -107,12 +110,12 @@ export default function FullWidthTabs() {
           <CcMastercard title="Master Card" size="70" />
           <CcAmex title="American Express" size="70" />
           <CcDiscover title="Discover" size="70" />
-          <CcDinersClub title="Diners Club" size="70"/>
+          <CcDinersClub title="Diners Club" size="70" />
         </CCDiv>
         <p>
-          Angry Pickles keeps your payment information secure.&nbsp;
-          Angry Pickles never receives your credit card information. All credit card information is
-          processed in accordance with&nbsp; 
+          Angry Pickles keeps your payment information secure.&nbsp; Angry
+          Pickles never receives your credit card information. All credit card
+          information is processed in accordance with&nbsp;
           <a
             href="https://stripe.com/guides/pci-compliance"
             target="_blank"
@@ -120,16 +123,24 @@ export default function FullWidthTabs() {
             aria-label="Link to Stripe's Payment Card Industry Data Security Standards"
           >
             Payment Card Industry Data Security Standards (PCI DSS)
-          </a>&nbsp;through Stripe
+          </a>
+          &nbsp;through Stripe
         </p>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <h3>I don't accept returns, exchanges, or cancellations</h3>
-        <p>But please contact me if you have any problems with your order.</p>
+        <p>
+          But please <Link to="/contact">contact</Link> me if you have any
+          problems with your order.
+        </p>
       </TabPanel>
       <TabPanel value={value} index={3}>
         <h3>Sizing details</h3>
-        <p>All items are packed and sealed in 16 oz. mason jars. One jar of pickles will fit in a 6" x 6" X 6" box and weighs approximately 18 ounces.</p>
+        <p>
+          All items are packed and sealed in 16 oz. mason jars. One jar of
+          pickles will fit in a 6" x 6" X 6" box and weighs approximately 18
+          ounces.
+        </p>
         <h3>Care instructions</h3>
         <p>
           Unopened pickles are good for up to one year. Once opened, refrigerate
@@ -161,7 +172,8 @@ export default function FullWidthTabs() {
           make it sour. Whether pickles are gluten free is sometimes questioned
           because they are made with vinegar and the safety of vinegar has been
           questioned in the past. The vinegar we use is distilled and is gluten
-          free so the pickles are too.&nbsp;<br/>
+          free so the pickles are too.&nbsp;
+          <br />
           <a
             href="https://www.beyondceliac.org/gluten-free-diet/is-it-gluten-free/vinegar/"
             target="_blank"
@@ -173,14 +185,23 @@ export default function FullWidthTabs() {
         </p>
         <h3>Do you offer local pickup?</h3>
         <p>
-          Yes I do for any customers within <a href="https://www.onslowcountync.gov/" target="_blank"
+          Yes I do for any customers within{" "}
+          <a
+            href="https://www.onslowcountync.gov/"
+            target="_blank"
             rel="noreferrer"
-            aria-label="Link to Onslow County website">Onslow County</a>. Please contact me for
-          local pickup. We will then arrange a meeting place so you can enjoy
-          your pickles.
+            aria-label="Link to Onslow County website"
+          >
+            Onslow County
+          </a>
+          . Please contact me for local pickup. We will then arrange a meeting
+          place so you can enjoy your pickles.
         </p>
         <h3>Anymore Questions?</h3>
-        <p>Please email me at <a href="mailto:sales@angrypickles.com">sales@angrypickles.com</a></p>
+        <p>
+          Please email me at{" "}
+          <a href="mailto:sales@angrypickles.com">sales@angrypickles.com</a>
+        </p>
       </TabPanel>
     </div>
   );
