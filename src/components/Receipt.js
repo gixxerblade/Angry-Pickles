@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Img from "gatsby-image";
 import { useStaticQuery, graphql } from "gatsby";
 import ReceiptTable from "./ReceiptTable.js";
+import Spinner from "../components/Spinner";
 const Receipt = () => {
   const [date, setDate] = useState("");
   useEffect(() => {
@@ -33,7 +34,7 @@ const Receipt = () => {
   return (
     <>
       {loading ? (
-        <h2>Loading...</h2>
+        <Spinner />
       ) : (
         <InvoiceBox>
           <StyledHeaderDiv>
@@ -70,7 +71,7 @@ export default Receipt;
 
 Receipt.propTypes = {
   data: any,
-  loading: bool
+  loading: bool,
 };
 
 const InvoiceBox = styled.div`

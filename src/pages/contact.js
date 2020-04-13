@@ -20,28 +20,6 @@ const encode = (data) => {
 };
 
 const Contact = () => {
-  const initialFormState = { name: "", email: "", message: "" };
-  const [state, setState] = useState(initialFormState);
-  const recaptchaRef = createRef();
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const recaptchaValue = recaptchaRef.current.getValue();
-    const form = e.target;
-    await fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({
-        "form-name": form.getAttribute("name"),
-        "g-recaptcha-response": recaptchaValue,
-        ...state,
-      }),
-    })
-      .then(() => console.log(state))
-      .then(() => navigate(form.getAttribute("action")))
-      .catch((error) => alert(error));
-  };
-
-  const handleChange = (e) => setState({ [e.target.name]: e.target.value });
 
   return (
     <Layout>
@@ -71,7 +49,6 @@ const Contact = () => {
           netlify-honeypot="bot-field"
           data-netlify-recaptcha="true"
           action="/thanks"
-          onSubmit={onSubmit}
         >
           <p style={{ display: "none" }}>
             <label>
@@ -92,7 +69,6 @@ const Contact = () => {
               placeholder="John Smith"
               type="text"
               name="name"
-              onChange={handleChange}
             />
           </StyledLabel>
           <StyledLabel>
@@ -101,7 +77,6 @@ const Contact = () => {
               placeholder="jsmith@somemail.com"
               type="email"
               name="email"
-              onChange={handleChange}
             />
           </StyledLabel>
           <StyledLabel>
@@ -109,11 +84,9 @@ const Contact = () => {
             <StyledTextArea
               placeholder="Your message here..."
               name="message"
-              onChange={handleChange}
             ></StyledTextArea>
           </StyledLabel>
           <StyledFormButton type="submit">Send</StyledFormButton>
-          <Recaptcha ref={recaptchaRef} sitekey={RECAPTCHA_KEY} />
         </StyledFormContainer>
       </StyledContainerDiv>
     </Layout>

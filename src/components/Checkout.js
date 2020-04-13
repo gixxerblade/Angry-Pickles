@@ -1,15 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { navigate } from "gatsby";
 import StripeCheckout from "react-stripe-checkout";
 import { CartContext } from "./CartProvider";
 import icon from "../images/ap_logo.png";
+import Spinner from "./Spinner";
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
   const onToken = async (token, addresses) => {
     const items = cart.map(([sku, quantity]) => ({
       type: "sku",
       parent: sku.id,
-      quantity
+      quantity,
     }));
     let response;
     try {
@@ -28,12 +30,12 @@ const Checkout = () => {
                 city: addresses.shipping_address_city,
                 state: addresses.shipping_address_state,
                 postal_code: addresses.shipping_address_zip,
-                country: addresses.shipping_address_country_code
-              }
-            }
-          }
-        })
-      }).then(response => response.json());
+                country: addresses.shipping_address_country_code,
+              },
+            },
+          },
+        }),
+      }).then((response) => response.json());
     } catch (err) {
       alert(err.message);
     }
@@ -41,7 +43,7 @@ const Checkout = () => {
     localStorage.setItem("cart", "{}");
     // Redirect to order confirmation page
     navigate(`/order?id=${response.data.id}`);
-    console.log(response.data.id)
+    setLoading(true);
   };
   return (
     <StripeCheckout
