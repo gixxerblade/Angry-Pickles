@@ -95,8 +95,8 @@ const Contact = () => {
               onChange={handleChange}
             ></StyledTextArea>
           </StyledLabel>
-          <Recaptcha ref={recaptchaRef} sitekey={RECAPTCHA_KEY} />
           <StyledFormButton type="submit">Send</StyledFormButton>
+          <Recaptcha ref={recaptchaRef} sitekey={RECAPTCHA_KEY} />
         </StyledFormContainer>
       </StyledContainerDiv>
     </Layout>
