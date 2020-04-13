@@ -23,11 +23,11 @@ const Contact = () => {
   const initialFormState = { name: "", email: "", message: "" };
   const [state, setState] = useState(initialFormState);
   const recaptchaRef = createRef();
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
     const recaptchaValue = recaptchaRef.current.getValue();
     const form = e.target;
-    fetch("/", {
+    await fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
