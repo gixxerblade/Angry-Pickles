@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import styled from "styled-components";
 import { navigate } from "gatsby";
-import Recaptcha from 'react-google-recaptcha'
+import Recaptcha from "react-google-recaptcha";
 
 const RECAPTCHA_KEY = process.env.GATSBY_APP_SITE_RECAPTCHA_KEY;
 if (typeof RECAPTCHA_KEY === "undefined") {
@@ -19,7 +19,8 @@ const encode = data => {
 };
 
 const Contact = () => {
-  const [state, setState] = useState({ name: "", email: "", message: "" });
+  const initialFormState = { name: "", email: "", message: "" };
+  const [state, setState] = useState(initialFormState);
   const recaptchaRef = createRef();
   const onSubmit = e => {
     e.preventDefault();
@@ -35,10 +36,12 @@ const Contact = () => {
       })
     })
       .then(() => navigate(form.getAttribute("action")))
+      .then(() => console.log("Success!"))
+      .then(() => setState(initialFormState))
       .catch(error => alert(error));
   };
 
-  const handleChange = e => setForm({ [e.target.name]: e.target.value });
+  const handleChange = e => setState({ [e.target.name]: e.target.value });
 
   return (
     <Layout>
