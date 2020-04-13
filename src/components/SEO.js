@@ -1,97 +1,113 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";
-import { StaticQuery, graphql } from "gatsby";
-function SEO({ description, lang, meta, keywords, title }) {
+import { Helmet } from "react-helmet";
+import { useLocation } from "@reach/router";
+import { useStaticQuery, graphql } from "gatsby";
+
+const SEO = ({ title, description, image, article }) => {
+  const { pathname } = useLocation();
+  const { site } = useStaticQuery(query);
+
+  const {
+    defaultTitle,
+    titleTemplate,
+    defaultDescription,
+    siteUrl,
+    defaultImage,
+    twitterUsername,
+    faceBookPage,
+    instagram,
+  } = site.siteMetadata;
+
+  const seo = {
+    title: title || defaultTitle,
+    description: description || defaultDescription,
+    image: `${siteUrl}${image || defaultImage}`,
+    url: `${siteUrl}${pathname}`,
+  };
+
   return (
-    <StaticQuery
-      query={detailsQuery}
-      render={data => {
-        const metaDescription =
-          description || data.site.siteMetadata.description;
-        return (
-          <Helmet
-            htmlAttributes={{
-              lang
-            }}
-            title={title}
-            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-            meta={[
-              {
-                name: `description`,
-                content: metaDescription
-              },
-              {
-                property: `og:title`,
-                content: title
-              },
-              {
-                property: `og:description`,
-                content: metaDescription
-              },
-              {
-                property: `og:type`,
-                content: `website`
-              },
-              {
-                name: `twitter:card`,
-                content: `summary`
-              },
-              {
-                name: `twitter:creator`,
-                content: data.site.siteMetadata.author
-              },
-              {
-                name: `twitter:title`,
-                content: title
-              },
-              {
-                name: `twitter:description`,
-                content: metaDescription
-              }
-            ]
-              .concat(
-                keywords.length > 0
-                  ? {
-                      name: `keywords`,
-                      content: keywords.join(`, `)
-                    }
-                  : []
-              )
-              .concat(meta)}
-          >
-            <script src="https://js.stripe.com/v2/"></script>
-            <script src="https://js.stripe.com/v3/"></script>
-            {/*             <script>
-              Stripe.setPublishableKey('pk_test_UkXkeSoYvBrRwirxwzNfZYhj00m81HqFNP');
-            </script>
- */}{" "}
-          </Helmet>
-        );
-      }}
-    />
+    <Helmet title={seo.title} titleTemplate={titleTemplate}>
+      <meta name="description" content={seo.description} />
+      <meta name="image" content={seo.image} />
+
+      {seo.url && <meta property="og:url" content={seo.url} />}
+
+      {(article ? true : null) && <meta property="og:type" content="article" />}
+
+      {seo.title && <meta property="og:title" content={seo.title} />}
+
+      {seo.description && (
+        <meta property="og:description" content={seo.description} />
+      )}
+
+      {seo.image && <meta property="og:image" content={seo.image} />}
+
+      <meta name="twitter:card" content="summary_large_image" />
+
+      {twitterUsername && (
+        <meta name="twitter:creator" content={twitterUsername} />
+      )}
+
+      {seo.title && <meta name="twitter:title" content={seo.title} />}
+
+      {seo.description && (
+        <meta name="twitter:description" content={seo.description} />
+      )}
+
+      {seo.image && <meta name="twitter:image" content={seo.image} />}
+
+      {faceBookPage && (
+        <meta name="faceBookPage:creator" content={faceBookPage} />
+      )}
+
+      {seo.title && <meta name="faceBookPage:title" content={seo.title} />}
+
+      {seo.description && (
+        <meta name="faceBookPage:description" content={seo.description} />
+      )}
+
+      {seo.image && <meta name="faceBookPage:image" content={seo.image} />}
+
+      {instagram && <meta name="instagram:creator" content={instagram} />}
+
+      {seo.title && <meta name="instagram:title" content={seo.title} />}
+
+      {seo.description && (
+        <meta name="instagram:description" content={seo.description} />
+      )}
+
+      {seo.image && <meta name="instagram:image" content={seo.image} />}
+    </Helmet>
   );
-}
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  keywords: []
 };
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.array,
-  keywords: PropTypes.arrayOf(PropTypes.string),
-  title: PropTypes.string.isRequired
-};
+
 export default SEO;
-const detailsQuery = graphql`
-  query DefaultSEOQuery {
+
+SEO.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  article: PropTypes.bool,
+};
+
+SEO.defaultProps = {
+  title: null,
+  description: null,
+  image: null,
+  article: false,
+};
+
+const query = graphql`
+  query SEO {
     site {
       siteMetadata {
-        title
-        description
-        author
+        defaultTitle: title
+        titleTemplate
+        defaultDescription: description
+        siteUrl: url
+        defaultImage: image
+        twitterUsername
       }
     }
   }

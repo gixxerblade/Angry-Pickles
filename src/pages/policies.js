@@ -18,7 +18,7 @@ const Policies = () => {
   `);
 
   return (
-    <Layout>
+    <Layout>    
       <br />
       <StyledDiv>
         <Link to="/home">

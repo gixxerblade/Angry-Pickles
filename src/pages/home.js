@@ -24,7 +24,7 @@ const Home = () => {
           `artisan`
         ]}
       />
-      <Styledh2>Making small batches of pickles using fresh stuff</Styledh2>
+       <Styledh2>Making small batches of pickles using fresh stuff</Styledh2>
       <Products />
     </Layout>
   );

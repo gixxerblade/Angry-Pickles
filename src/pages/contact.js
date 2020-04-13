@@ -13,9 +13,9 @@ if (typeof RECAPTCHA_KEY === "undefined") {
   Make sure to get a Recaptcha key at https://www.netlify.com/docs/form-handling/#custom-recaptcha-2-with-your-own-settings`);
 } 
 */
-const encode = data => {
+const encode = (data) => {
   return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&");
 };
 
@@ -23,7 +23,7 @@ const Contact = () => {
   const initialFormState = { name: "", email: "", message: "" };
   const [state, setState] = useState(initialFormState);
   const recaptchaRef = createRef();
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const recaptchaValue = recaptchaRef.current.getValue();
     const form = e.target;
@@ -33,18 +33,35 @@ const Contact = () => {
       body: encode({
         "form-name": form.getAttribute("name"),
         "g-recaptcha-response": recaptchaValue,
-        ...state
-      })
+        ...state,
+      }),
     })
       .then(() => console.log(state))
       .then(() => navigate(form.getAttribute("action")))
-      .catch(error => alert(error));
+      .catch((error) => alert(error));
   };
 
-  const handleChange = e => setState({ [e.target.name]: e.target.value });
+  const handleChange = (e) => setState({ [e.target.name]: e.target.value });
 
   return (
     <Layout>
+      <SEO
+        title="Contact"
+        keywords={[
+          `Angry Pickles`,
+          `Pickles`,
+          `gourmet pickles`,
+          `handmade`,
+          `spicy`,
+          `dill`,
+          `kosher`,
+          `gluten free`,
+          `comfort food`,
+          `power food`,
+          `homemade`,
+          `artisan`,
+        ]}
+      />
       <StyledContainerDiv>
         <StyledContactH1>Contact</StyledContactH1>
         <StyledFormContainer
