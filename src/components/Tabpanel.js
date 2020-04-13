@@ -21,9 +21,8 @@ function TabPanel(props) {
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}      {...other}
     >
       {value === index && <Box p={4}>{children}</Box>}
     </Typography>
@@ -38,10 +37,9 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
-  };
-}
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -53,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SimpleTabs() {
+export default function FullWidthTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -69,6 +67,7 @@ export default function SimpleTabs() {
           onChange={handleChange}
           aria-label="Shop Policies Tabs"
           centered
+          variant="fullWidth"
         >
           <Tab label="Shipping" {...a11yProps(0)} />
           <Tab label="Payment options" {...a11yProps(1)} />

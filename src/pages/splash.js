@@ -10,7 +10,7 @@ const Splash = () => {
           Enter
         </a>
         {/*         <Link className="splash-h1" to="/home">Enter</Link>
-         */}{" "}
+         */}
       </BackGroundSection>
     </>
   );
