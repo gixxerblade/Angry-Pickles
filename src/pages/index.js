@@ -7,7 +7,8 @@ import Policies from "./policies";
 import Updates from "./updates";
 import Order from "./order";
 import Splash from "./splash";
-import '@stripe/stripe-js'
+import "@stripe/stripe-js";
+import Thanks from "./thanks";
 const IndexPage = () => (
   <Router>
     <Splash path="/" />
@@ -17,6 +18,7 @@ const IndexPage = () => (
     <Policies path="/policies" />
     <Updates path="/updates" />
     <Order path="/order" />
+    <Thanks path="/thanks" />
   </Router>
 );
 
