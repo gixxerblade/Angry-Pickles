@@ -32,12 +32,11 @@ const Contact = () => {
       body: encode({
         "form-name": form.getAttribute("name"),
         "g-recaptcha-response": recaptchaValue,
-        ...form
+        ...state
       })
     })
+      .then(() => console.log(state))
       .then(() => navigate(form.getAttribute("action")))
-      .then(() => console.log("Success!"))
-      .then(() => setState(initialFormState))
       .catch(error => alert(error));
   };
 
@@ -49,7 +48,7 @@ const Contact = () => {
         <StyledContactH1>Contact</StyledContactH1>
         <StyledFormContainer
           name="contact"
-          method="post"
+          method="POST"
           data-netlify="true"
           netlify-honeypot="bot-field"
           data-netlify-recaptcha="true"
@@ -68,6 +67,7 @@ const Contact = () => {
               disabled in your browser.
             </p>
           </noscript>
+          <input type="hidden" name="form-name" value="contact" />
           <StyledLabel>
             Your Name:
             <StyledFormInput
