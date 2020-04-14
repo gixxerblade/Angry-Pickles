@@ -10,7 +10,7 @@ const encode = (data) => {
 };
 
 const Contact = () => {
-  const [state, setState] = useState({ name: "", email: "", message: "" });
+  const [state, setState] = useState({});
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -24,11 +24,10 @@ const Contact = () => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
         "form-name": form.getAttribute("name"),
-        state,
+        ...state,
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
-      .then(() => console.log(state))
       .catch((error) => alert(error));
   };
   return (
