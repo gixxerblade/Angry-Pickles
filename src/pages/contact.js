@@ -10,7 +10,7 @@ const encode = (data) => {
 };
 
 const Contact = () => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -24,10 +24,11 @@ const Contact = () => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: encode({
         "form-name": form.getAttribute("name"),
-        ...state,
+        state,
       }),
     })
       .then(() => navigate(form.getAttribute("action")))
+      .then(() => console.log(state))
       .catch((error) => alert(error));
   };
   return (
@@ -86,6 +87,7 @@ const Contact = () => {
               placeholder="jsmith@somemail.com"
               type="email"
               name="email"
+              onChange={handleChange}
             />
           </StyledLabel>
           <StyledLabel>
@@ -93,6 +95,7 @@ const Contact = () => {
             <StyledTextArea
               placeholder="Your message here..."
               name="message"
+              onChange={handleChange}
             ></StyledTextArea>
           </StyledLabel>
           <StyledFormButton type="submit">Send</StyledFormButton>
