@@ -4,7 +4,7 @@ import SEO from "../components/SEO";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 import Typed from "react-typed";
-import '../styles/contact.css'
+import "../styles/contact.css";
 const encode = (data) => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -82,6 +82,7 @@ const Contact = () => {
               type="text"
               name="name"
               onChange={handleChange}
+              required
             />
           </StyledLabel>
           <StyledLabel className="email-label">
@@ -92,6 +93,7 @@ const Contact = () => {
               type="email"
               name="email"
               onChange={handleChange}
+              required
             />
           </StyledLabel>
           <StyledLabel className="textarea-label">
@@ -116,6 +118,7 @@ const Contact = () => {
               <StyledTextArea
                 name="message"
                 onChange={handleChange}
+                required
               ></StyledTextArea>
             </Typed>
           </StyledLabel>
@@ -169,5 +172,26 @@ const StyledContactH1 = styled.h1`
   text-align: center;
 `;
 const StyledFormButton = styled.button`
-  width: 50%;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 2rem;
+  background-color: #679436;
+  border: solid #ffffff 0.3rem;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  &:hover {
+    background: #679436;
+    border: solid #99c624 0.5rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    text-decoration: none;
+  }
 `;
