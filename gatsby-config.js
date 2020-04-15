@@ -63,6 +63,12 @@ module.exports = {
         path: `${__dirname}/src/markdown`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_TRACKING_ID || "none",
+      },
+    },
     `gatsby-transformer-remark`,
   ],
   // for avoiding CORS while developing Netlify Functions locally
