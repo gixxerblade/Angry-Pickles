@@ -34,24 +34,24 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   bar: {
-    backgroundColor: "#679436"
-  }
+    backgroundColor: "#679436",
+  },
 }));
 
 export default function FullWidthTabs() {
@@ -148,7 +148,7 @@ export default function FullWidthTabs() {
         </p>
         <h3>Wholesale availability</h3>
         <p>
-          Please contact me at sales@angrypickles.com for wholesale
+          Please <Link to="/contact">contact</Link> me for wholesale
           opportunities.
         </p>
         <h3>Shipment to P.O. boxes or APO/FPO addresses</h3>
@@ -164,7 +164,7 @@ export default function FullWidthTabs() {
           it is open and a picture of the damaged item after you have opened it
           as soon as possible and let us know and we will send you a new jar.
           Angry Pickles is not liable for any products lost during shipping. If
-          you received your order damaged, please contact us.
+          you received your order damaged, please <Link to="/contact">contact</Link> us.
         </p>
         <h3>Are your pickles gluten free?</h3>
         <p>
@@ -194,7 +194,7 @@ export default function FullWidthTabs() {
           >
             Onslow County
           </a>
-          . Please contact me for local pickup. We will then arrange a meeting
+          . Please <Link to="/contact">contact</Link> me for local pickup. We will then arrange a meeting
           place so you can enjoy your pickles.
         </p>
         <h3>Anymore Questions?</h3>

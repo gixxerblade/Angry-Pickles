@@ -3,6 +3,8 @@ import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import styled from "styled-components";
 import { navigate } from "gatsby";
+import Typed from "react-typed";
+import '../styles/contact.css'
 const encode = (data) => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -71,31 +73,51 @@ const Contact = () => {
             value="contact"
             onChange={handleChange}
           />
-          <StyledLabel>
-            Your Name:
+          <StyledLabel className="name-label">
+            Your Name
             <StyledFormInput
-              placeholder="John Smith"
+              className="name"
+              tabIndex="0"
+              placeholder="Johnny Pickles"
               type="text"
               name="name"
               onChange={handleChange}
             />
           </StyledLabel>
-          <StyledLabel>
-            Your Email:
+          <StyledLabel className="email-label">
+            Your Email
             <StyledFormInput
-              placeholder="jsmith@somemail.com"
+              className="email"
+              placeholder="name@somemail.com"
               type="email"
               name="email"
               onChange={handleChange}
             />
           </StyledLabel>
-          <StyledLabel>
-            Message:
-            <StyledTextArea
-              placeholder="Your message here..."
-              name="message"
-              onChange={handleChange}
-            ></StyledTextArea>
+          <StyledLabel className="textarea-label">
+            Message
+            <Typed
+              strings={[
+                "I love your pickles!!!",
+                "Do you offer wholesale?",
+                "Are your pickles homemade?",
+                "How long are pickles good for?",
+                "Do you offer local pickup?",
+                "What do your customers say about your pickles?",
+                "What ingredients do you use in your pickles?",
+                "I have a problem with my order.",
+              ]}
+              typeSpeed={30}
+              attr="placeholder"
+              loop
+              cursorChar=""
+              fadeOut={true}
+            >
+              <StyledTextArea
+                name="message"
+                onChange={handleChange}
+              ></StyledTextArea>
+            </Typed>
           </StyledLabel>
           <StyledFormButton type="submit">Send</StyledFormButton>
         </StyledFormContainer>
@@ -115,20 +137,32 @@ const StyledContainerDiv = styled.div`
 const StyledFormContainer = styled.form`
   width: 90%;
   display: flex;
+  position: relative;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   margin: 1rem;
   font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
 `;
 const StyledLabel = styled.label`
+  position: static;
+  display: flex;
+  line-height: 2rem;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
   width: 90%;
+  margin-bottom: 1rem;
 `;
 const StyledFormInput = styled.input`
   width: 90%;
 `;
 const StyledTextArea = styled.textarea`
   width: 90%;
+  height: 8em;
+  line-height: 2.2rem;
+  text-align: top;
+  resize: none;
 `;
 const StyledContactH1 = styled.h1`
   margin: 1rem;
