@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useContext } from "react";
+import { OpenContext } from "./openContext";
+import "../styles/burger.css";
 const Burger = () => {
-  // const [opened, setOpened] = useContext(OpenContext)
+  const [opened, setOpened] = useContext(OpenContext);
   return (
     <>
       <button
@@ -13,6 +15,6 @@ const Burger = () => {
         <div />
       </button>
     </>
-  )
-}
-export default Burger
+  );
+};
+export default Burger;

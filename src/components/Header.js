@@ -1,14 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 // eslint-disable-next-line import/no-duplicates
-import { Link } from "gatsby";
+// import { Link } from "gatsby";
 import Cart from "./Cart";
 import styled from "styled-components";
 import Img from "gatsby-image";
 // eslint-disable-next-line import/no-duplicates
-import { useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql, Link } from "gatsby";
 import Navbar from "./Navbar";
-
 const Header = ({ siteTitle }) => {
   const logo = useStaticQuery(graphql`
     query MyQuery {
@@ -73,11 +72,7 @@ const StyledHeaderDiv = styled.div`
 const StyledHeaderH1 = styled.h1`
   margin: 2rem;
   color: #ebf2fa;
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
-    /* Styles */
-    text-align: center;
-    margin-top: 0;
-  }
+
 `;
 const StyledH1Link = styled(Link)`
   text-decoration: none;
