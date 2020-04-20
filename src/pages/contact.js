@@ -4,7 +4,6 @@ import SEO from "../components/SEO";
 import styled from "styled-components";
 import { navigate } from "gatsby";
 import Typed from "react-typed";
-import "../styles/contact.css";
 const encode = (data) => {
   return Object.keys(data)
     .map((key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -113,7 +112,6 @@ const Contact = () => {
               attr="placeholder"
               loop
               cursorChar=""
-              fadeOut={true}
             >
               <StyledTextArea
                 name="message"

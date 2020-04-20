@@ -1,5 +1,0 @@
-.name-label:focus-within .name {
-  position: absolute;
-  transition: linear .2s;
-  transform: translateY(-100%);
-}
