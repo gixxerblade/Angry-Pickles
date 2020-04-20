@@ -1,14 +1,14 @@
 import React from "react";
-import { Link } from "gatsby";
 import BackGroundSection from "../components/BackgroundSection";
 import "../styles/splash.css";
 import SEO from "../components/SEO";
+// import { Link } from "gatsby";
 const Splash = () => {
   return (
     <>
       <BackGroundSection>
         <SEO
-          title="Splash"
+          title="Welcome to Angry Pickles"
           keywords={[
             `Angry Pickles`,
             `Pickles`,
