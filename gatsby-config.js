@@ -15,6 +15,7 @@ module.exports = {
     twitterUsername: "@gixxerblade",
     faceBookPage: "fb.me/angrypickleguy",
     instagram: "@angrypickleguy",
+    siteUrl: "https://www.angrypickles.com",
   },
   plugins: [
     `gatsby-plugin-sitemap`,
