@@ -165,7 +165,7 @@ const StyledTextArea = styled.textarea`
   text-align: top;
   resize: none;
 `;
-const StyledContactH1 = styled.h1`
+export const StyledContactH1 = styled.h1`
   margin: 1rem;
   text-align: center;
 `;

@@ -1,20 +1,33 @@
 const path = require("path");
 const slug = require("slug");
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
-  // Add slug for page generation.
+  // Add slug for Stripe page generation.
   if (node.internal.type === "StripeSku") {
+    // console.log(node.internal.type);
     const value = slug(node.product.name, slug.defaults.modes["rfc3986"]);
     createNodeField({
       node,
       name: "slug",
-      value
+      value,
+    });
+  }
+  // Add slug for Markdown page generation.
+  if (node.internal.type === `MarkdownRemark`) {
+    // console.log(node.internal.type);
+    const value = createFilePath({ node, getNode, basePath: `pages` });
+    createNodeField({
+      node,
+      name: `slug`,
+      value: value,
     });
   }
 };
 
+// Create page for each Stripe SKU
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
@@ -34,7 +47,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
+  `).then((result) => {
     if (result.errors) {
       Promise.reject(result.errors);
     }
@@ -51,11 +64,12 @@ exports.createPages = async ({ graphql, actions }) => {
       createPage({
         path: "buy/" + slug,
         component: productTemplate,
-        context: { id }
+        context: { id },
       });
     });
   });
 };
+
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
   // Only update the `/order` page.
@@ -66,4 +80,34 @@ exports.onCreatePage = async ({ page, actions }) => {
     // Update the page.
     createPage(page);
   }
+};
+
+// Create page for each Markdown file
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+  const result = await graphql(`
+    query {
+      allMarkdownRemark {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/blog-post.js`),
+      context: {
+        // Data passed to context is available
+        // in page queries as GraphQL variables.
+        slug: node.fields.slug,
+      },
+    });
+  });
 };
