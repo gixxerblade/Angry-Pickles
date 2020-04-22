@@ -17,6 +17,7 @@ module.exports = {
     instagram: "@angrypickleguy",
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
