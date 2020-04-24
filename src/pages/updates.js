@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import { Link, graphql } from "gatsby";
 import { StyledContactH1 } from "./contact";
-import styled from "styled-components"
+import styled from "styled-components";
 const Updates = ({ data }) => {
   const htmlMarkup = () => {
     return { __html: data.allMarkdownRemark.edges[0].node.html };
@@ -30,7 +30,7 @@ const Updates = ({ data }) => {
       />
       <StyledContactH1>Updates</StyledContactH1>
       {data.allMarkdownRemark.edges.map(({ node }) => (
-        <StyledDiv id={node.id}>
+        <StyledDiv key={node.id} id={node.id}>
           <Link to={node.fields.slug}>
             <h3>
               {node.frontmatter.title} — <span>{node.frontmatter.date}</span>
@@ -63,7 +63,6 @@ export const query = graphql`
   }
 `;
 
-const StyledDiv = styled.div `
+const StyledDiv = styled.div`
   font-family: "Poppins", sans-serif;
-
-`
+`;

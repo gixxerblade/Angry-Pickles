@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { StaticQuery, graphql } from "gatsby";
+import { StaticQuery, graphql, Link } from "gatsby";
 import Header from "./Header";
 import ProductsProvider from "./ProductsProvider";
 import CartProvider from "./CartProvider";
@@ -11,6 +11,7 @@ import MobileHeader from "./MobileHeader";
 import OpenProvider from "./openContext";
 import Burger from "./burger";
 import MobileNavbar from "./MobileNavbar";
+import { IdentityContextProvider } from "react-netlify-identity-widget";
 const Layout = ({ children }) => {
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-device-width: 1025px)",
@@ -29,7 +30,7 @@ const Layout = ({ children }) => {
         }
       `}
       render={(data) => (
-        <>
+        <IdentityContextProvider url="https://www.angrypickles.com">
           <ProductsProvider>
             <CartProvider>
               <OpenProvider>
@@ -42,7 +43,8 @@ const Layout = ({ children }) => {
                   {isTabletOrMobile && <Burger />}
                   {isTabletOrMobile && <MobileNavbar />}
                   <StyledFooter>
-                    ©{new Date().getFullYear()}&nbsp;
+                    <StyledFooterLink to="/dashboard">©</StyledFooterLink>
+                    {new Date().getFullYear()}&nbsp;
                     <StyleFooterA href="https://www.stephenclark.dev">
                       Steve Clark
                     </StyleFooterA>
@@ -51,7 +53,7 @@ const Layout = ({ children }) => {
               </OpenProvider>
             </CartProvider>
           </ProductsProvider>
-        </>
+        </IdentityContextProvider>
       )}
     />
   );
@@ -86,6 +88,13 @@ const StyledFooter = styled.footer`
   margin-top: 1rem;
 `;
 const StyleFooterA = styled.a`
+  text-decoration: none;
+  color: #000000;
+  &:hover {
+    color: #679436;
+  }
+`;
+const StyledFooterLink = styled(Link)`
   text-decoration: none;
   color: #000000;
   &:hover {

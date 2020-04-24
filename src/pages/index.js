@@ -9,6 +9,9 @@ import Order from "./order";
 import Splash from "./splash";
 import "@stripe/stripe-js";
 import Thanks from "./thanks";
+import Dashboard from "./dashboard";
+import Customers from "../components/Customers";
+import Shipping from "../components/Shipping";
 const IndexPage = () => (
   <Router>
     <Splash path="/" />
@@ -18,6 +21,7 @@ const IndexPage = () => (
     <Policies path="/policies" />
     <Updates path="/updates" />
     <Order path="/order" />
+    <Dashboard path="/dashboard/*" />
     <Thanks path="/thanks" />
   </Router>
 );

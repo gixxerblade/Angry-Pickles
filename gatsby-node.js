@@ -70,6 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 };
 
+// Create an order summary page for each order
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
   // Only update the `/order` page.
@@ -98,7 +99,7 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `);
-
+  // Create a page of available blog posts for each blog post in a list
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.fields.slug,
@@ -110,4 +111,12 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     });
   });
+};
+
+// Dashboard create page
+exports.onCreatePage = ({ page, actions }) => {
+  if (page.path.match(/^\/dashboard/)) {
+    page.matchPath = "/dashboard/*";
+    actions.createPage(page);
+  }
 };
