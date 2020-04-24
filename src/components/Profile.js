@@ -1,19 +1,31 @@
 import React from "react";
 import { Link } from "gatsby";
 import styled from "styled-components";
+import { useIdentityContext } from "react-netlify-identity";
+const Profile = ({ showModal }) => {
+  // Hook to check if user is logged in
+  const identity = useIdentityContext();
+  const isLoggedIn = identity && identity.isLoggedIn;
 
-const Profile = () => {
+  //Optional chaining to access users name to display
+  const name = identity?.user?.user_metadata?.full_name;
   return (
-    <StyledNav>
-      <StyledBtn>Logout</StyledBtn>
-      <StyledLink to="/dashboard/customers">Customers</StyledLink>
-      <StyledLink to="/dashboard/shipping">Shipping</StyledLink>
-      <StySpan>TODO: Add logged in state</StySpan>
-    </StyledNav>
+    isLoggedIn && (
+      <StyledNav>
+        {/* Log out button */}
+        <StyledBtn onClick={showModal}>Logout</StyledBtn>
+        {/* Links to various protected areas */}
+        <StyledLink to="/dashboard/customers">Customers</StyledLink>
+        <StyledLink to="/dashboard/shipping">Shipping</StyledLink>
+        <StySpan>Welcome {name}</StySpan>
+      </StyledNav>
+    )
   );
 };
 
 export default Profile;
+
+//Styling
 
 const StyledNav = styled.nav`
   left: 0;

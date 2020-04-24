@@ -1,13 +1,22 @@
-import React, { useEffect } from "react";
-import { Link, navigate, replace } from "gatsby";
+import React, { useState, useEffect } from "react";
+import { navigate } from "gatsby";
 import { Router } from "@reach/router";
 import Layout from "../components/Layout";
 import Profile from "../components/Profile";
-import styled from "styled-components";
 import Customers from "../components/Customers";
 import Shipping from "../components/Shipping";
 import Login from "../components/Login";
+import IdentityModal from "react-netlify-identity-widget";
+import "react-netlify-identity-widget/styles.css";
+import PrivateRoute from "../components/PrivateRoute";
 const Dashboard = ({ location }) => {
+  // useState to change visibility of the login modal
+  const [isVisible, setVisibility] = useState(false);
+
+  // Prop passed to Login component so when user clicks login the modal appears
+  const showModal = () => setVisibility(true);
+
+  //useEffect to check if the location path name matches
   useEffect(() => {
     if (location.pathname.match(/^\/dashboard\/?$/)) {
       navigate("/dashboard/login", { replace: true });
@@ -15,13 +24,18 @@ const Dashboard = ({ location }) => {
   }, []);
   return (
     <Layout>
-      <Profile />
-      <h1>TODO: Create a Dashboard</h1>
+      <Profile showModal={showModal} />
       <Router>
-        <Customers path="/dashboard/customers" />
-        <Shipping path="/dashboard/shipping" />
-        <Login path="/dashboard/login" />
+        {/* PrivateRoute to prevent unauthenticated users from accessing protected areas */}
+        <PrivateRoute path="/dashboard/customers" component={Customers} />
+        <PrivateRoute path="/dashboard/shipping" component={Shipping} />
+        <Login path="/dashboard/login" showModal={showModal} />
       </Router>
+      {/* IdentityModal is the built-in Netlify Modal for logging in and new users */}
+      <IdentityModal
+        showDialog={isVisible}
+        onCloseDialog={() => setVisibility(false)}
+      />
     </Layout>
   );
 };

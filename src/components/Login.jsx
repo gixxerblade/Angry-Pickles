@@ -1,15 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-const Login = () => {
+// useIdentityContext to check login status
+import { useIdentityContext } from "react-netlify-identity";
+import { navigate } from "gatsby";
+const Login = ({ showModal }) => {
+  // Checks to see if user is logged in. If so, navigates to protected areas.
+  const identity = useIdentityContext();
+  if (identity && identity.isLoggedIn) {
+    navigate("/dashboard/", { replace: true });
+  }
   return (
     <StyledDiv>
       <StyledH1>Login or Sign Up</StyledH1>
-      <StyledFormButton>Login</StyledFormButton>
+      <StyledFormButton onClick={showModal}>Login</StyledFormButton>
     </StyledDiv>
   );
 };
 
 export default Login;
+
+// Styling
 
 const StyledDiv = styled.div`
   display: flex;
