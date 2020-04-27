@@ -6,6 +6,7 @@
   "author": "Stephen Clark (https://stephenclark.dev)",
   "dependencies": {
     "@babel/plugin-transform-typescript": "^7.9.4",
+    "@easypost/api": "^3.8.1",
     "@material-ui/core": "^4.9.10",
     "@reach/dialog": "^0.10.1",
     "@reach/tabs": "^0.10.1",

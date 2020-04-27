@@ -17,6 +17,6 @@ export const useFetch = (url, options) => {
     };
     fetchData();
     return () => setIsSubscribed(false);
-  }, []);
+  }, [data]);
   return { data, loading };
 };

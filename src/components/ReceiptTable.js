@@ -11,13 +11,14 @@ import { UserContext } from "./UserContext";
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650
-  }
+    minWidth: 650,
+  },
 });
 
 const ReceiptTable = () => {
   const classes = useStyles();
   const { data, loading } = useContext(UserContext);
+
   return (
     <>
       {loading ? (
@@ -34,18 +35,24 @@ const ReceiptTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.items.map(item => (
+              {data.items.map((item) => (
                 <TableRow key={item.parent}>
                   <TableCell component="th" scope="row">
                     {item.description}
                   </TableCell>
                   <TableCell align="center">{item.quantity}</TableCell>
                   <TableCell align="center">
-                    ${(item.amount / 100).toFixed(2)}&nbsp;
+                    $
+                    {item.quantity
+                      ? (
+                          (item.amount / 100).toFixed(2) / item.quantity
+                        ).toFixed(2)
+                      : (item.amount / 100).toFixed(2)}
+                    &nbsp;
                   </TableCell>
                   {item.quantity ? (
                     <TableCell align="center">
-                      ${((item.amount / 100) * item.quantity).toFixed(2)}&nbsp;
+                      ${(item.amount / 100).toFixed(2)}&nbsp;
                     </TableCell>
                   ) : (
                     <TableCell align="center">

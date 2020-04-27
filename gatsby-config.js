@@ -36,7 +36,7 @@ module.exports = {
         short_name: `AP`,
         start_url: `/`,
         background_color: `rgba(189, 210, 166, 1)`,
-        theme_color: `##7bc045`,
+        theme_color: `#7bc045`,
         display: `minimal-ui`,
         icon: `src/images/ap_logo.png`, // This path is relative to the root of the site.
       },

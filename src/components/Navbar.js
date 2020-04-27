@@ -6,7 +6,7 @@ const links = {
   About: "/about",
   "Shop Policies": "/policies",
   Updates: "/updates",
-  Contact: "/contact"
+  Contact: "/contact",
 };
 
 const Navbar = () => {
@@ -18,9 +18,7 @@ const Navbar = () => {
       </StyledLi>
     );
   });
-  return (
-      <StyledNavbarUl>{linkList}</StyledNavbarUl>
-  );
+  return <StyledNavbarUl>{linkList}</StyledNavbarUl>;
 };
 export default Navbar;
 
@@ -36,9 +34,15 @@ const StyledNavbarUl = styled.ul`
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  -webkit-justify-content: space-around !important;
+  justify-content: space-around;
   list-style: none;
   text-decoration: none;
+  &@supports not (-ms-ime-align: auto) {
+     {
+      justify-content: space-evenly;
+    }
+  }
 `;
 const StyledNavbarLink = styled(Link)`
   text-decoration: none;

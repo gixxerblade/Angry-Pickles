@@ -27,8 +27,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
+  // Everything wrapped in a try/catch block for error checking
   try {
     // GraphQL queries
     const result = await graphql(`
@@ -57,7 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     `);
-
+    // console.log(result);
     // *** Stripe create pages ***
     // Stripe product template location
     const productTemplate = path.resolve("src/templates/ProductTemplate.js");
@@ -83,7 +84,7 @@ exports.createPages = async ({ graphql, actions }) => {
     result.data.blog.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/templates/blog-post.js`),
+        component: blogTemplate,
         context: {
           // Data passed to context is available
           // in page queries as GraphQL variables.
@@ -91,10 +92,39 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       });
     });
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    // reporter.panicOnBuild('message', error) built-in Gatsby Noe API helper
+    // As seen here: https://www.gatsbyjs.org/docs/node-api-helpers/#reporter
+    reporter.panicOnBuild(`Error while running GraphQL query.`, error);
   }
 };
+
+// Create an order summary page for each order
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions;
+  // Only update the `/order` page.
+  if (page.path.match(/^\/order/)) {
+    // page.matchPath is a special key that's used for matching pages
+    // with corresponding routes only on the client.
+    page.matchPath = "/order/*";
+    // Update the page.
+    createPage(page);
+  }
+};
+
+// Dashboard create page
+exports.onCreatePage = ({ page, actions }) => {
+  if (page.path.match(/^\/dashboard/)) {
+    page.matchPath = "/dashboard/*";
+    actions.createPage(page);
+  }
+};
+
+/* 
+########
+# OUTDATED DATA BUT KEEPING JUST IN CASE - YOU NEVER KNOW
+########
+*/
 
 // Create page for each Stripe SKU
 /* exports.createPages = async ({ graphql, actions }) => {
@@ -140,19 +170,6 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 };
 */
-// Create an order summary page for each order
-exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions;
-  // Only update the `/order` page.
-  if (page.path.match(/^\/order/)) {
-    // page.matchPath is a special key that's used for matching pages
-    // with corresponding routes only on the client.
-    page.matchPath = "/order/*";
-    // Update the page.
-    createPage(page);
-  }
-};
-
 // Create page for each Markdown file
 /* exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -183,10 +200,3 @@ exports.onCreatePage = async ({ page, actions }) => {
   });
 };
  */
-// Dashboard create page
-exports.onCreatePage = ({ page, actions }) => {
-  if (page.path.match(/^\/dashboard/)) {
-    page.matchPath = "/dashboard/*";
-    actions.createPage(page);
-  }
-};
