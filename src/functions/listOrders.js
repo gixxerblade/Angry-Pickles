@@ -20,7 +20,6 @@ const errorResponse = (err, callback) => {
  * List all orders paid but not fulfilled.
  */
 module.exports.handler = async (event, context, callback) => {
-  // const query = event.queryStringParameters.id;
   try {
     const order = await stripe.orders
       .list({ status: "paid", limit: 100 })

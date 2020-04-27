@@ -35,9 +35,9 @@ module.exports.handler = async (event, context, callback) => {
         message: "Order placed successfully!"
       })
     };
-    console.log("Type ID: ", typeof query);
+/*     console.log("Type ID: ", typeof query);
     console.log("ID: ", `${query}`);
-    return response;
+ */    return response;
   } catch (e) {
     errorResponse(e, callback);
   }

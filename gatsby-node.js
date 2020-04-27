@@ -16,7 +16,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     });
   }
   // Add slug for Markdown page generation.
-  if (node.internal.type === `MarkdownRemark`) {
+  else if (node.internal.type === `MarkdownRemark`) {
     // console.log(node.internal.type);
     const value = createFilePath({ node, getNode, basePath: `pages` });
     createNodeField({
@@ -27,10 +27,80 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 };
 
-// Create page for each Stripe SKU
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
+  try {
+    // GraphQL queries
+    const result = await graphql(`
+      {
+        stripe: allStripeSku {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              product {
+                id
+                name
+              }
+            }
+          }
+        }
+        blog: allMarkdownRemark {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `);
 
+    // *** Stripe create pages ***
+    // Stripe product template location
+    const productTemplate = path.resolve("src/templates/ProductTemplate.js");
+
+    // Create product pages
+    const products = {};
+    result.data.stripe.edges.forEach(({ node }) => {
+      products[node.product.id] = node.fields.slug;
+    });
+
+    Object.entries(products).forEach(([id, slug]) => {
+      createPage({
+        path: `buy/${slug}`,
+        component: productTemplate,
+        context: { id },
+      });
+    });
+
+    // ***Blog post create pages***
+    // Markdown blog post template location
+    const blogTemplate = path.resolve(`./src/templates/blog-post.js`);
+    // Create new blog post pages
+    result.data.blog.edges.forEach(({ node }) => {
+      createPage({
+        path: node.fields.slug,
+        component: path.resolve(`./src/templates/blog-post.js`),
+        context: {
+          // Data passed to context is available
+          // in page queries as GraphQL variables.
+          slug: node.fields.slug,
+        },
+      });
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+// Create page for each Stripe SKU
+/* exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  //GraphQL query
   return graphql(`
     {
       allStripeSku {
@@ -69,7 +139,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 };
-
+*/
 // Create an order summary page for each order
 exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
@@ -84,7 +154,7 @@ exports.onCreatePage = async ({ page, actions }) => {
 };
 
 // Create page for each Markdown file
-exports.createPages = async ({ graphql, actions }) => {
+/* exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query {
@@ -112,7 +182,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 };
-
+ */
 // Dashboard create page
 exports.onCreatePage = ({ page, actions }) => {
   if (page.path.match(/^\/dashboard/)) {
