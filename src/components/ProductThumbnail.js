@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const ProductThumbnail = ({ product }) => {
   return (
-    <InvoiceBox key={product.id} style={{ breakInside: "avoid" }}>
+    <ProductThumbnailBox key={product.id} style={{ breakInside: "avoid" }}>
       <StyledLink to={`/buy/${product.slug}`}>
         <StyledProductContainer>
           {product.localFiles && (
@@ -21,19 +21,22 @@ const ProductThumbnail = ({ product }) => {
           </StyledProductNamePrice>
         </StyledProductContainer>
       </StyledLink>
-    </InvoiceBox>
+    </ProductThumbnailBox>
   );
 };
 
 ProductThumbnail.propTypes = {
-  product: PropTypes.object.isRequired
+  product: PropTypes.object.isRequired,
 };
 
 export default ProductThumbnail;
 
-const InvoiceBox = styled.div`
+const ProductThumbnailBox = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
   width: 300px;
-  height: 300px;
+  height: 370px;
   margin: auto;
   padding: 10px;
   border: 1px solid #eee;

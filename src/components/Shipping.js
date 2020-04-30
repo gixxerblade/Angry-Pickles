@@ -1,18 +1,24 @@
 import React from "react";
-import { Link } from "gatsby";
-import { useFetch } from "./Fetcher";
+import OrderShippingTab from "./OrdersShipping/OrderShippingTab";
+import styled from "styled-components";
+import OrderProvider from "../components/OrdersShipping/OrderProvider";
+
 // Area to connect to Stripe and Easy Post
 const Shipping = () => {
-  const { data, loading } = useFetch("/.netlify/functions/listOrders", {});
-  console.log(data.data);
-  const paidList = data.data.map((order) => {
-    return <li key={order.id}>{order.id}</li>;
- });
- return (
+  return (
     <>
-      <h1>TODO: make panel for Shipping using Easy Post</h1>
-   <ul>{paidList}</ul>
-   </>
+      <br />
+      <StyledContactH1>Orders & Shipping</StyledContactH1>
+      <hr />
+      <OrderProvider>
+        <OrderShippingTab />
+      </OrderProvider>
+    </>
   );
 };
 export default Shipping;
+
+const StyledContactH1 = styled.h1`
+  margin: 1rem;
+  font-family: "Poppins", sans-serif;
+`;

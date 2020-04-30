@@ -16,8 +16,8 @@ const Profile = ({ showModal }) => {
         <StyledBtn onClick={showModal}>Logout</StyledBtn>
         {/* Links to various protected areas */}
         <StyledLink to="/dashboard/customers">Customers</StyledLink>
-        <StyledLink to="/dashboard/shipping">Shipping</StyledLink>
-        <StySpan>Welcome {name}</StySpan>
+        <StyledLink to="/dashboard/shipping">Orders & Shipping</StyledLink>
+        <StySpan>Welcome, {name}</StySpan>
       </StyledNav>
     )
   );

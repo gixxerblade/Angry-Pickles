@@ -9,6 +9,8 @@ import Login from "../components/Login";
 import IdentityModal from "react-netlify-identity-widget";
 import "react-netlify-identity-widget/styles.css";
 import PrivateRoute from "../components/PrivateRoute";
+import "@reach/tabs/styles.css";
+
 const Dashboard = ({ location }) => {
   // useState to change visibility of the login modal
   const [isVisible, setVisibility] = useState(false);
@@ -35,6 +37,7 @@ const Dashboard = ({ location }) => {
       <IdentityModal
         showDialog={isVisible}
         onCloseDialog={() => setVisibility(false)}
+        onLogin={() => setVisibility(false)}
       />
     </Layout>
   );

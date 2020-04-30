@@ -16,8 +16,10 @@ const Items = () => {
 
 export default Items;
 const StyledProductsDiv = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-auto-flow: row;
   font-family: "Poppins", sans-serif;
+  place-content: center;
+  gap: 1rem;
 `;
