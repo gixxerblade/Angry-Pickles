@@ -62,6 +62,7 @@ const Checkout = () => {
       allowRememberMe
     >
       <button>Checkout for ${total / 100}</button>
+      {loading && <Spinner />}
     </StripeCheckout>
   );
 };
