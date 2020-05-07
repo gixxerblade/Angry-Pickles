@@ -59,4 +59,4 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 
 ## Acknowledgments
 
-Thank you to [brxck](https://github.com/brxck) for making his starter available.
+Thank you to [brxck](https://github.com/brxck) for making his starter available. Also to [njosefbeck](https://github.com/njosefbeck) for maintaining `gatsby-source-stripe`

@@ -6,6 +6,7 @@ import Profile from "../components/Profile";
 import Customers from "../components/Customers";
 import Shipping from "../components/Shipping";
 import Login from "../components/Login";
+import Ship from "../components/Ship"
 import IdentityModal from "react-netlify-identity-widget";
 import "react-netlify-identity-widget/styles.css";
 import PrivateRoute from "../components/PrivateRoute";
@@ -31,6 +32,7 @@ const Dashboard = ({ location }) => {
         {/* PrivateRoute to prevent unauthenticated users from accessing protected areas */}
         <PrivateRoute path="/dashboard/customers" component={Customers} />
         <PrivateRoute path="/dashboard/shipping" component={Shipping} />
+        <PrivateRoute path="/dashboard/ship" component={Ship} />
         <Login path="/dashboard/login" showModal={showModal} />
       </Router>
       {/* IdentityModal is the built-in Netlify Modal for logging in and new users */}

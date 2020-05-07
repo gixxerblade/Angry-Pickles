@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-export const useFetch = (url, options) => {
-  const [data, setData] = useState(null);
+ export const useFetch = (url, options) => {
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isSubscribed, setIsSubscribed] = useState(true);
   const [error, setError] = useState(null);
@@ -13,15 +13,46 @@ export const useFetch = (url, options) => {
         if (isSubscribed) {
           setData(order);
           setLoading(false);
-          // console.log("Fetch Data: ", order);
-          console.log('useFetch has run')
-        }
-      } catch (error) {
-        setError(error);
+          //console.log("Fetch Data: ", data);
+          // console.log("useFetch has run");
+        } else throw new Error("Cannot retrieve data");
+      } catch (err) {
+        setError(err);
+        return "Error: ", err.message;
       }
     };
     fetchData();
-    return () => setIsSubscribed(false);
+    return () => {
+      console.log("Unsubscribed!");
+      setIsSubscribed(false);
+    };
   }, []);
   return { data, loading, error };
 };
+ 
+/* export const useFetch = (url, options) => {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [isSubscribed, setIsSubscribed] = useState(true);
+  const [error, setError] = useState(null);
+  async function fetchData() {
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      const { data: order } = data;
+      if (isSubscribed) {
+        setData(order);
+        setLoading(false);
+        // console.log("Fetch Data: ", order);
+        console.log("useFetch has run");
+      }
+    } catch (error) {
+      setError(error);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+  return { data, loading, error };
+};
+ */

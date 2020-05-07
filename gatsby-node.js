@@ -120,83 +120,15 @@ exports.onCreatePage = ({ page, actions }) => {
   }
 };
 
-/* 
-########
-# OUTDATED DATA BUT KEEPING JUST IN CASE - YOU NEVER KNOW
-########
-*/
-
-// Create page for each Stripe SKU
-/* exports.createPages = async ({ graphql, actions }) => {
+/* // Create an shipping summary page for each order
+exports.onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions;
-
-  //GraphQL query
-  return graphql(`
-    {
-      allStripeSku {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            product {
-              id
-              name
-            }
-          }
-        }
-      }
-    }
-  `).then((result) => {
-    if (result.errors) {
-      Promise.reject(result.errors);
-    }
-
-    // Create product pages
-    const products = {};
-
-    result.data.allStripeSku.edges.forEach(({ node }) => {
-      products[node.product.id] = node.fields.slug;
-    });
-
-    const productTemplate = path.resolve("src/templates/ProductTemplate.js");
-    Object.entries(products).forEach(([id, slug]) => {
-      createPage({
-        path: "buy/" + slug,
-        component: productTemplate,
-        context: { id },
-      });
-    });
-  });
-};
-*/
-// Create page for each Markdown file
-/* exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-  const result = await graphql(`
-    query {
-      allMarkdownRemark {
-        edges {
-          node {
-            fields {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-  // Create a page of available blog posts for each blog post in a list
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: path.resolve(`./src/templates/blog-post.js`),
-      context: {
-        // Data passed to context is available
-        // in page queries as GraphQL variables.
-        slug: node.fields.slug,
-      },
-    });
-  });
-};
- */
+  // Only update the `/order` page.
+  if (page.path.match(/^\/dashboard\/shipping/)) {
+    // page.matchPath is a special key that's used for matching pages
+    // with corresponding routes only on the client.
+    page.matchPath = "dashboard/shipping/*";
+    // Update the page.
+    createPage(page);
+  }
+}; */
