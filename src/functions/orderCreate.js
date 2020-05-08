@@ -4,12 +4,12 @@ const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
 function errorResponse(err, callback) {
   const response = {
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
     },
     statusCode: 500,
     body: JSON.stringify({
-      error: err
-    })
+      error: err,
+    }),
   };
 
   if (typeof callback === "function") {
@@ -31,23 +31,32 @@ module.exports.handler = async (event, context, callback) => {
       currency,
       items,
       shipping,
-      email
+      email,
+    });
+    // Update order
+    const shippingMethod = order.shipping_methods.find(
+      (shippingMethod) =>
+        shippingMethod.description === "USPS: Priority (2 day delivery)"
+    );
+    const updatedOrder = await stripe.orders.update(order.id, {
+      selected_shipping_method: shippingMethod.id,
     });
 
     // Charge order
-    stripe.orders.pay(order.id, {
-      source: id
+    const paid = await stripe.orders.pay(updatedOrder.id, {
+      source: id,
     });
 
+    console.log("paid:", paid);
     const response = {
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "https://www.angrypickles.com/",
       },
       statusCode: 200,
       body: JSON.stringify({
         data: order,
-        message: "Order placed successfully!"
-      })
+        message: "Order placed successfully!",
+      }),
     };
 
     callback(null, response);

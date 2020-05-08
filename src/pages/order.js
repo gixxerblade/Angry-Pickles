@@ -12,7 +12,7 @@ const Order = ({ location }) => {
   let id = query.replace(re, "");
 
   const { data, loading } = useFetch(`/.netlify/functions/retrieve${query}`, {
-    queryStringParameters: { id: id }
+    queryStringParameters: { id: id },
   });
 
   return (

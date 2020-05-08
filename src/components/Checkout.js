@@ -39,7 +39,7 @@ const Checkout = () => {
     } catch (err) {
       alert(err.message);
     }
-
+    // Empties local storage
     localStorage.setItem("cart", "{}");
     // Redirect to order confirmation page
     navigate(`/order?id=${response.data.id}`);
