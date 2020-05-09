@@ -20,6 +20,8 @@ const errorResponse = (err, callback) => {
  * List all orders paid but not fulfilled.
  */
 module.exports.handler = async (event, context, callback) => {
+  console.log(event.headers);
+  console.log(context);
   try {
     const order = await stripe.orders
       .list({ status: "paid", limit: 100 })
@@ -28,10 +30,11 @@ module.exports.handler = async (event, context, callback) => {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
+      credentials: "same-origin",
       statusCode: 200,
       body: JSON.stringify({
-        data: order,
         message: "List of paid items",
+        data: order,
       }),
     };
     // console.log("response: ", response);
