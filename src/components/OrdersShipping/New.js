@@ -3,17 +3,17 @@ import { OrderContext } from "./OrderProvider";
 import styled from "styled-components";
 import Spinner from "../Spinner";
 import { navigate } from "gatsby";
+
 const New = () => {
   // Load data from listOrders.js lambda function
   const { data, loading, error } = useContext(OrderContext);
-
   // id for capturing the order ID when "Create New Shipment" is clicked
   const [id, setId] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
     setId(order.id)
-    console.log(id)
+    //console.log(id)
   };
   //console.log(data.data);
   const { data: unfulfilledOrder } = data;
@@ -63,7 +63,7 @@ const New = () => {
       }
     });
     // Should I have this here?
-  } else console.log(error) && navigate("/404");
+  } 
   return <>{loading ? <ShippingSpinner /> : <div>{order}></div>}</>;
 };
 export default New;

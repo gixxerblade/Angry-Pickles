@@ -1,5 +1,4 @@
 const stripe = require("stripe")(process.env.GATSBY_STRIPE_SECRET_KEY);
-
 const errorResponse = (err, callback) => {
   const response = {
     headers: {
@@ -20,24 +19,22 @@ const errorResponse = (err, callback) => {
  * List all orders paid but not fulfilled.
  */
 module.exports.handler = async (event, context, callback) => {
-  console.log(event.headers);
-  console.log(context);
+  const { identity, user } = context.clientContext;
+  console.log(context.clientContext);
+  if (!user) {
+    return callback(null, { statusCode: 401, body: "Unauthorized" });
+  }
   try {
     const order = await stripe.orders
       .list({ status: "paid", limit: 100 })
       .catch((e) => console.log(e));
     const response = {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      credentials: "same-origin",
       statusCode: 200,
       body: JSON.stringify({
         message: "List of paid items",
         data: order,
       }),
     };
-    // console.log("response: ", response);
 
     return response;
   } catch (e) {

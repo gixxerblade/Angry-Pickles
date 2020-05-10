@@ -30,29 +30,3 @@ import { useState, useEffect } from "react";
   return { data, loading, error };
 };
  
-/* export const useFetch = (url, options) => {
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [isSubscribed, setIsSubscribed] = useState(true);
-  const [error, setError] = useState(null);
-  async function fetchData() {
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      const { data: order } = data;
-      if (isSubscribed) {
-        setData(order);
-        setLoading(false);
-        // console.log("Fetch Data: ", order);
-        console.log("useFetch has run");
-      }
-    } catch (error) {
-      setError(error);
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
-  return { data, loading, error };
-};
- */

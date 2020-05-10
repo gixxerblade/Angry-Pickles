@@ -31,6 +31,7 @@
     "gatsby-source-stripe": "^3.0.7",
     "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.4.4",
+    "netlify-identity-widget": "^1.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
