@@ -6,7 +6,7 @@ import Profile from "../components/Profile";
 import Customers from "../components/Customers";
 import Shipping from "../components/Shipping";
 import Login from "../components/Login";
-import Ship from "../components/Ship"
+import Ship from "../components/OrdersShipping/Ship";
 import IdentityModal from "react-netlify-identity-widget";
 import "react-netlify-identity-widget/styles.css";
 import PrivateRoute from "../components/PrivateRoute";

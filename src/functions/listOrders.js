@@ -20,7 +20,6 @@ const errorResponse = (err, callback) => {
  */
 module.exports.handler = async (event, context, callback) => {
   const { identity, user } = context.clientContext;
-  console.log(context.clientContext);
   if (!user) {
     return callback(null, { statusCode: 401, body: "Unauthorized" });
   }

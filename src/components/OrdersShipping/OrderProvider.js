@@ -1,14 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
-import { useFetch } from "../Fetcher";
 export const OrderContext = createContext();
 import { useIdentityContext } from "react-netlify-identity";
 
 const OrderProvider = ({ children }) => {
+  //stateful 
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isSubscribed, setIsSubscribed] = useState(true);
   const [error, setError] = useState(null);
 
+  //Identity instance.Check if user logged in to give access to Netlify function
   const identity = useIdentityContext();
 
   const generateHeaders = async () => {

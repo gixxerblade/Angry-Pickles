@@ -41,7 +41,7 @@ const Checkout = () => {
     }
     // Empties local storage
     localStorage.setItem("cart", "{}");
-    // Redirect to order confirmation page
+    // Redirect to order summary page
     navigate(`/order?id=${response.data.id}`);
     setLoading(true);
   };

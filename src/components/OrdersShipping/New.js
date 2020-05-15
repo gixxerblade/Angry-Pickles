@@ -3,18 +3,10 @@ import { OrderContext } from "./OrderProvider";
 import styled from "styled-components";
 import Spinner from "../Spinner";
 import { navigate } from "gatsby";
-
 const New = () => {
   // Load data from listOrders.js lambda function
-  const { data, loading, error } = useContext(OrderContext);
-  // id for capturing the order ID when "Create New Shipment" is clicked
-  const [id, setId] = useState("");
+  const { data, loading } = useContext(OrderContext);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setId(order.id)
-    //console.log(id)
-  };
   //console.log(data.data);
   const { data: unfulfilledOrder } = data;
   // console.log(newOrder);
@@ -22,9 +14,13 @@ const New = () => {
   // Will only display once promise is resolved
   if (unfulfilledOrder) {
     order = unfulfilledOrder.map((order) => {
-      if (order.status_transitions.fulfiled === null) {
+      if (
+        order.status_transitions.fulfiled === null &&
+        order.status_transitions.paid !== null
+      ) {
+        const orderKey = order.url;
         return (
-          <InvoiceBox onSubmit={onSubmit}>
+          <InvoiceBox>
             <Container className="container">
               <div className="left">
                 <div>{order.shipping.name}</div>
@@ -37,7 +33,7 @@ const New = () => {
                     let sku = item.parent;
                     if (item.type === "sku") {
                       return (
-                        <div>
+                        <div key={orderKey}>
                           <div>Sku: {sku}</div>
                           <div>Item: {desc}</div>
                           <div>Quantity: {qty}</div>
@@ -48,22 +44,31 @@ const New = () => {
                 </div>
               </div>
               <RightContainer className="right">
-                <PageBtn type="button" value="Create New Shipment" />
-                <MailBtn
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  href={`mailto:${order.email}?subject=Angry Pickle Order #${order.id}&body=${order.shipping.name},`}
-                >
-                  Contact Customer
-                </MailBtn>
+                <PageBtn
+                  type="button"
+                  value="Create New Shipment"
+                  onClick={(e) => {
+                    e.preventDefault;
+                    navigate(`dashboard/ship`, {
+                      state: { id: order.id },
+                    });
+                  }}
+                />
               </RightContainer>
             </Container>
+            <MailBtn
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              href={`mailto:${order.email}?subject=Angry Pickle Order #${order.id}&body=${order.shipping.name},`}
+            >
+              Contact Customer
+            </MailBtn>
           </InvoiceBox>
         );
       }
     });
     // Should I have this here?
-  } 
+  }
   return <>{loading ? <ShippingSpinner /> : <div>{order}></div>}</>;
 };
 export default New;
@@ -73,7 +78,7 @@ const ShippingSpinner = styled(Spinner)`
   left: 50%;
   transform: translate(-50%, -50vh);
 `;
-const InvoiceBox = styled.form`
+const InvoiceBox = styled.div`
   position: relative;
   max-width: 100%;
   margin: 1rem;
@@ -102,9 +107,11 @@ const PageBtn = styled.input`
   padding: 1rem 1rem;
   text-decoration: none;
   margin: 0.5rem;
+  width: 100%;
 
   &:hover {
     background-color: #5cbf2a;
+    font-weight: 600;
   }
   &:active {
     position: relative;
@@ -113,8 +120,11 @@ const PageBtn = styled.input`
   }
 `;
 const MailBtn = styled.a`
-  width: 90%;
-  height: 3rem;
+  position: absolute;
+  right: 2%;
+  bottom: 20%;
+  height: 3.3rem;
+  width: 12rem;
   line-height: 2rem;
   text-align: center;
   background-color: #44c767;
@@ -126,9 +136,10 @@ const MailBtn = styled.a`
   font-size: 0.8rem;
   padding: 0.5rem 0.5rem;
   text-decoration: none;
-  margin: auto;
+  margin: 0.5rem;
   &:hover {
     background-color: #5cbf2a;
+    font-weight: 600;
   }
   &:active {
     position: relative;

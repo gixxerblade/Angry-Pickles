@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/report.*
 
 # Runtime data
 pids
@@ -77,3 +78,4 @@ README.md
 
 # Local Netlify folder
 .netlify
+

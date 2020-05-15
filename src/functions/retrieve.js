@@ -21,6 +21,7 @@ const errorResponse = (err, callback) => {
  */
 module.exports.handler = async (event, context, callback) => {
   const query = event.queryStringParameters.id;
+  
   try {
     const order = await stripe.orders
       .retrieve(query)
