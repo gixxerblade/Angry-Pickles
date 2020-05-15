@@ -54,15 +54,15 @@ const New = () => {
                     });
                   }}
                 />
+                <MailBtn
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  href={`mailto:${order.email}?subject=Angry Pickle Order #${order.id}&body=${order.shipping.name},`}
+                >
+                  Contact Customer
+                </MailBtn>
               </RightContainer>
             </Container>
-            <MailBtn
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              href={`mailto:${order.email}?subject=Angry Pickle Order #${order.id}&body=${order.shipping.name},`}
-            >
-              Contact Customer
-            </MailBtn>
           </InvoiceBox>
         );
       }
@@ -107,7 +107,7 @@ const PageBtn = styled.input`
   padding: 1rem 1rem;
   text-decoration: none;
   margin: 0.5rem;
-  width: 100%;
+  width: 90%;
 
   &:hover {
     background-color: #5cbf2a;
@@ -120,11 +120,7 @@ const PageBtn = styled.input`
   }
 `;
 const MailBtn = styled.a`
-  position: absolute;
-  right: 2%;
-  bottom: 20%;
-  height: 3.3rem;
-  width: 12rem;
+  width: 90%;
   line-height: 2rem;
   text-align: center;
   background-color: #44c767;
@@ -134,7 +130,7 @@ const MailBtn = styled.a`
   cursor: pointer;
   color: #ffffff;
   font-size: 0.8rem;
-  padding: 0.5rem 0.5rem;
+  padding: .7rem .7rem;
   text-decoration: none;
   margin: 0.5rem;
   &:hover {
