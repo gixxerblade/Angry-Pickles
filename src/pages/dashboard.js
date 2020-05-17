@@ -11,7 +11,8 @@ import IdentityModal from "react-netlify-identity-widget";
 import "react-netlify-identity-widget/styles.css";
 import PrivateRoute from "../components/PrivateRoute";
 import "@reach/tabs/styles.css";
-
+import Completed from "../components/OrdersShipping/Completed";
+import New from "../components/OrdersShipping/New";
 const Dashboard = ({ location }) => {
   // useState to change visibility of the login modal
   const [isVisible, setVisibility] = useState(false);

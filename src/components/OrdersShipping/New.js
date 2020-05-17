@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { OrderContext } from "./OrderProvider";
 import styled from "styled-components";
 import Spinner from "../Spinner";
@@ -50,7 +50,7 @@ const New = () => {
                   onClick={(e) => {
                     e.preventDefault;
                     navigate(`dashboard/ship`, {
-                      state: { id: order.id },
+                      state: { id: order.id, modal: true },
                     });
                   }}
                 />
@@ -67,9 +67,8 @@ const New = () => {
         );
       }
     });
-    // Should I have this here?
   }
-  return <>{loading ? <ShippingSpinner /> : <div>{order}></div>}</>;
+  return <>{loading ? <ShippingSpinner /> : <div>{order}</div>}</>;
 };
 export default New;
 const ShippingSpinner = styled(Spinner)`
@@ -130,7 +129,7 @@ const MailBtn = styled.a`
   cursor: pointer;
   color: #ffffff;
   font-size: 0.8rem;
-  padding: .7rem .7rem;
+  padding: 0.7rem 0.7rem;
   text-decoration: none;
   margin: 0.5rem;
   &:hover {
