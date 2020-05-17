@@ -57,6 +57,12 @@ Deploy to Netlify
 
 If you want to deploy somewhere other than Netlify, you'll have to find another place to deploy the serverless functions in `/functions`, ex. AWS Lambda.
 
+## TODO
+
+[] Adding Easypost shipping API
+[] Add Customers tab for marketing
+[] After item is shipped move to Completed component
+
 ## Acknowledgments
 
 Thank you to [brxck](https://github.com/brxck) for making his starter available. Also to [njosefbeck](https://github.com/njosefbeck) for maintaining `gatsby-source-stripe`
