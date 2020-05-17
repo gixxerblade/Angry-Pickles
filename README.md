@@ -59,9 +59,9 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 
 ## TODO
 
-[] Adding Easypost shipping API
-[] Add Customers tab for marketing
-[] After item is shipped move to Completed component
+- [ ] Adding Easypost shipping API
+- [ ] Add Customers tab for marketing
+- [ ] After item is shipped move to Completed component
 
 ## Acknowledgments
 
