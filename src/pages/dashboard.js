@@ -13,6 +13,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import "@reach/tabs/styles.css";
 import Completed from "../components/OrdersShipping/Completed";
 import New from "../components/OrdersShipping/New";
+import OrderShipping from "../components/OrdersShipping/OrderShippingTab";
 const Dashboard = ({ location }) => {
   // useState to change visibility of the login modal
   const [isVisible, setVisibility] = useState(false);
@@ -32,7 +33,12 @@ const Dashboard = ({ location }) => {
       <Router>
         {/* PrivateRoute to prevent unauthenticated users from accessing protected areas */}
         <PrivateRoute path="/dashboard/customers" component={Customers} />
-        <PrivateRoute path="/dashboard/shipping" component={Shipping} />
+        <PrivateRoute path="/dashboard/shipping" component={Shipping}>
+          <OrderShipping path="ordershipping">
+            <New path="new" />
+            <Completed path="completed" />
+          </OrderShipping>
+        </PrivateRoute>
         <PrivateRoute path="/dashboard/ship" component={Ship} />
         <Login path="/dashboard/login" showModal={showModal} />
       </Router>

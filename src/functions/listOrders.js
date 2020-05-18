@@ -25,7 +25,7 @@ module.exports.handler = async (event, context, callback) => {
   }
   try {
     const order = await stripe.orders
-      .list({ status: "paid", limit: 100 })
+      .list({ limit: 100 })
       .catch((e) => console.log(e));
     const response = {
       statusCode: 200,

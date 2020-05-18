@@ -68,6 +68,7 @@ const New = () => {
       }
     });
   }
+  console.log(loading);
   return <>{loading ? <ShippingSpinner /> : <div>{order}</div>}</>;
 };
 export default New;

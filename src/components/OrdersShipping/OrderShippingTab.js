@@ -9,6 +9,7 @@ import New from "./New";
 import Completed from "./Completed";
 import { LocalShipping } from "@styled-icons/material-outlined/LocalShipping";
 import { DoneOutline } from "@styled-icons/material-outlined/DoneOutline";
+import { Link, Router } from "@reach/router";
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
   return (
@@ -58,27 +59,30 @@ export default function OrderShippingTab() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  /*   useEffect(() => {
-
+  /*      useEffect(() => {
+value
     console.log("New value", value);
   }, [value]);
- */
-  return (
+ 
+ */ return (
     <div className={classes.root}>
       <AppBar className={classes.bar} position="static">
         <Tabs
           value={value}
           onChange={handleChange}
           aria-label="Orders and Shipping Tabs"
-          initialSelectedIndex={0}
         >
           <Tab
+            component={Link}
+            to="new"
             icon={<LocalShipping size="45" />}
             className={classes.tabname}
             label="New"
             {...a11yProps(0)}
           />
           <Tab
+            component={Link}
+            to="completed"
             icon={<DoneOutline size="45" />}
             className={classes.tabname}
             label="Completed"
@@ -86,11 +90,11 @@ export default function OrderShippingTab() {
           />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0} component={New}>
+      <TabPanel value={value} index={0}>
         <New />
       </TabPanel>
-      <TabPanel value={value} index={1} component={Completed}>
-        {value === 1 && <Completed />}
+      <TabPanel value={value} index={1}>
+        <Completed />
       </TabPanel>
     </div>
   );

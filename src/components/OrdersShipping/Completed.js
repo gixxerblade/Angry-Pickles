@@ -6,17 +6,16 @@ const Completed = () => {
   // Load data from listOrders.js lambda function
   const { data, loading } = useContext(OrderContext);
   //console.log(data.data);
-  const { data: fulfilledOrder } = data;
+  const { data: fulfiledOrder } = data;
   // console.log(newOrder);
   let completed;
   // Will only display once promise is resolved
-  if (fulfilledOrder) {
-    completed = fulfilledOrder.map((order) => {
+  if (fulfiledOrder) {
+    completed = fulfiledOrder.map((order) => {
       if (order.status_transitions.fulfiled && order.status_transitions.paid) {
         const orderKey = order.url;
         return (
           <InvoiceBox>
-            <div>Not fetching tabs</div>
             <Container className="container">
               <div className="left">
                 <div>{order.shipping.name}</div>
@@ -55,6 +54,7 @@ const Completed = () => {
       }
     });
   }
+  console.log(loading);
   return <>{loading ? <ShippingSpinner /> : <div>{completed}</div>}</>;
 };
 export default Completed;

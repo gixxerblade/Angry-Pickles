@@ -59,10 +59,23 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 
 ## TODO
 
-- [ ] Adding Easypost shipping API
+- [x] Add About page
+- [x] Add blog for updates
+- [x] Add Contact form
+- [x] Add admin area with dashboard
+- [ ] Make admin area responsive
+- [x] Add protected routes with Netlify Identity
+- [x] Load Completed component by fetching 'fulfilled` order status
+- [ ] Create shipping dashboard for Easypost integration
+- [ ] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
+- [ ] After item is shipped move to Completed component list
 - [ ] Add Customers tab for marketing
-- [ ] After item is shipped move to Completed component
+- [ ] Add ability to enter coupon codes in Stripe modal
+- [ ] Add ability to select shipping speed in Stripe modal
+- [ ] Use Jest to create testing for site
 
 ## Acknowledgments
 
-Thank you to [brxck](https://github.com/brxck) for making his starter available. Also to [njosefbeck](https://github.com/njosefbeck) for maintaining `gatsby-source-stripe`
+Thank you to [brxck](https://github.com/brxck) for making his starter available. Also to [njosefbeck](https://github.com/njosefbeck) for maintaining `gatsby-source-stripe`. Thank you to [Vets Who Code](https://vetswhocode.io/) for giving me the tools to create this site.
+
+ A donation to [Vets Who Code](https://vetswhocode.io/) goes to helping veterans, like myself, in learning front end development and other coding skills. You can donate here: [VetsWhoCode](https://vetswhocode.io/donate) or go [here](https://hashflag.shop/) to buy some cool 😎 Vets Who Code swag.
