@@ -50,7 +50,7 @@ const New = () => {
                   onClick={(e) => {
                     e.preventDefault;
                     navigate(`dashboard/ship`, {
-                      state: { id: order.id, modal: true },
+                      state: { id: order.id, modal: false },
                     });
                   }}
                 />
@@ -68,7 +68,6 @@ const New = () => {
       }
     });
   }
-  console.log(loading);
   return <>{loading ? <ShippingSpinner /> : <div>{order}</div>}</>;
 };
 export default New;

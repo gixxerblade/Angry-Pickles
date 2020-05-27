@@ -10,8 +10,7 @@ import Splash from "./splash";
 import "@stripe/stripe-js";
 import Thanks from "./thanks";
 import Dashboard from "./dashboard";
-import Customers from "../components/Customers";
-import Shipping from "../components/Shipping";
+
 const IndexPage = () => (
   <Router>
     <Splash path="/" />

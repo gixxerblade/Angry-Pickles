@@ -54,7 +54,7 @@ module.exports.handler = async (event, context, callback) => {
       },
       statusCode: 200,
       body: JSON.stringify({
-        data: order,
+        data: shipments,
         message: "Order placed successfully!",
       }),
     };
