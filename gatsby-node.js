@@ -120,15 +120,12 @@ exports.onCreatePage = ({ page, actions }) => {
   }
 };
 
- // Create an shipping summary page for each order
-/* exports.onCreatePage = async ({ page, actions }) => {
-  const { createPage } = actions;
-  // Only update the `/order` page.
-  if (page.path.match(/^\/dashboard\/ship/)) {
-    // page.matchPath is a special key that's used for matching pages
-    // with corresponding routes only on the client.
-    page.matchPath = "dashboard/ship/*";
-    // Update the page.
-    createPage(page);
-  }
-};  */
+exports.onCreateWebpackConfig = ({ stage, actions, plugins }) => {
+  actions.setWebpackConfig({
+    plugins: [
+      plugins.define({
+        "global.GENTLY": false,
+      }),
+    ],
+  });
+};

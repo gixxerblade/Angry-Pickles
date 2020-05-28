@@ -1,3 +1,8 @@
+// Function to purchase shipping from Easypost
+// API doc here => https://www.easypost.com/stripe-relay
+// Originally written in Ruby but converted to node
+// and https://www.easypost.com/docs/api/node#shipments
+
 const EasyPost = require("@easypost/api");
 const apiKey = process.env.GATSBY_EASYPOST_APIKEY;
 const api = new EasyPost(apiKey);
@@ -11,6 +16,7 @@ const errorResponse = (err, callback) => {
     statusCode: 500,
     body: JSON.stringify({
       error: err,
+      message: err.message,
     }),
   };
 
@@ -20,44 +26,37 @@ const errorResponse = (err, callback) => {
 };
 
 module.exports.handler = async (event, context, callback) => {
-  // Send over the order id & selected_shipping_method in the event body from Ship.js
-  const requestBody = JSON.parse(event.body);
-  console.log(requestBody);
-  // Destructure body.order.id
-  const { id } = requestBody.order;
-
-  // Part of the onClick event to purchase shipping from Easypost
-  // API doc here => https://www.easypost.com/stripe-relay
-  // and https://www.easypost.com/docs/api/node#shipments
+  // Send over the order id & selected_shipping_method in the event query string from Ship.js
+  const id = event.queryStringParameters.id;
 
   // The Stripe Order id is automatically sent to EasyPost as a Shipment reference
-  // At least according to Easypost
+  // according to Easypost => https://www.easypost.com/stripe-relay#easypost_stripe_relay-rb-1
   try {
     //Retrieve Stripe order data
-    const order = await stripe.orders.retrieve(id).catch((e) => console.log(e));
+    const order = await stripe.orders.retrieve(id);
 
     //The Stripe Order.id is automatically sent to EasyPost as a Shipment reference
+    // According to https://www.easypost.com/stripe-relay
     const shipments = await api.Shipment.retrieve(id);
-
     //Stripe order should already have a "selected_shipping_method" otherwise default to lowest rate
-    const selectEasypostRateForStripeOrder = async (order, shipment) => {
-      order.selected_shipping_method &&
-      order.selected_shipping_method.startsWith("rate_")
-        ? await api.Rate.new(shipment)
-        : await shipment.lowest_rate("USPS");
-    };
-    // Above function
-    const selectedRate = await selectEasypostRateForStripeOrder(
-      order,
-      shipments
-    );
-    // Buy this rate
-    shipments.buy(selectedRate);
+    let selectedRate;
+    order.selected_shipping_method &&
+    order.selected_shipping_method.startsWith("rate_")
+      ? (selectedRate = await order.selected_shipping_method)
+      : (selectedRate = await shipments.lowest_rate(["USPS"]));
 
+    // Buy this rate
+    await shipments.buy(selectedRate);
+    await shipments.convertLabelFormat("PDF");
+    console.log(shipments);
     //Update the Stripe order status and tracking information
     await stripe.orders.update(id, {
       status: "fulfilled",
-      metadata: { shipping_tracking_code: shipments.tracking_code },
+      metadata: {
+        shipping_id: shipments.id,
+        shipping_tracking_code: shipments.tracking_code,
+        shipping_postage_label: shipments.postage_label.label_pdf_url,
+      },
     });
     const response = {
       headers: {
@@ -65,13 +64,18 @@ module.exports.handler = async (event, context, callback) => {
       },
       statusCode: 200,
       body: JSON.stringify({
-        shipment: shipments,
-        message: `Tracking code: ${shipment.tracking_code}, Shipping label: ${shipment.postage_label.label_url}`,
+        data: order,
+        tracking_code: shipments.tracking_code,
+        shipping_label: shipments.postage_label.label_pdf_url,
+        message: "Postage successfully purchased",
       }),
     };
-    callback(null, response);
+    response.ok && callback(null, response);
+    return response;
   } catch (e) {
-    console.log(`Unable to fulfill Order ${order.id}: `, e.message);
+    console.log(`Unable to fulfill Order ${id}: `, e.message);
     errorResponse(e, callback);
+  } finally {
+    console.log("Completed transaction");
   }
 };

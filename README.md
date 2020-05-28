@@ -72,6 +72,7 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 - [ ] Add Customers tab for marketing
 - [ ] Add ability to enter coupon codes in Stripe modal
 - [ ] Add ability to select shipping speed in Stripe modal
+- [ ] Add route for users to create a login with Netlify Identity
 - [ ] Use Jest to create testing for site
 
 ## Acknowledgments

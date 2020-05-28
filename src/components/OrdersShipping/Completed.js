@@ -14,6 +14,7 @@ const Completed = () => {
     completed = fulfiledOrder.map((order) => {
       if (order.status_transitions.fulfiled && order.status_transitions.paid) {
         const orderKey = order.url;
+
         return (
           <InvoiceBox>
             <Container className="container">
@@ -26,6 +27,7 @@ const Completed = () => {
                     let desc = item.description;
                     let qty = item.quantity;
                     let sku = item.parent;
+                    let metadata = item.metadata;
                     if (item.type === "sku") {
                       return (
                         <div key={orderKey}>
@@ -33,6 +35,17 @@ const Completed = () => {
                           <div>Item: {desc}</div>
                           <div>Quantity: {qty}</div>
                           <div>Order Status: {order.status}</div>
+                          <div>
+                            Tracking#&nbsp;&nbsp;
+                            <a
+                              href={order.metadata.shipping_postage_label}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {order.metadata.shipping_tracking_code}
+                            </a>
+                          </div>
+                          ;
                         </div>
                       );
                     }
@@ -54,7 +67,7 @@ const Completed = () => {
       }
     });
   }
-  console.log(loading);
+  //console.log(loading);
   return <>{loading ? <ShippingSpinner /> : <div>{completed}</div>}</>;
 };
 export default Completed;

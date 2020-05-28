@@ -23,7 +23,7 @@ import { useState, useEffect } from "react";
     };
     fetchData();
     return () => {
-      console.log("Unsubscribed!");
+      //console.log("Unsubscribed!");
       setIsSubscribed(false);
     };
   }, []);
