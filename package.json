@@ -1,7 +1,7 @@
 {
   "name": "angry-pickles",
   "private": true,
-  "description": "%s · Accidental Pickle Connoisseur",
+  "description": "%s · Angry Pickles",
   "version": "0.1.0",
   "author": "Stephen Clark (https://stephenclark.dev)",
   "dependencies": {

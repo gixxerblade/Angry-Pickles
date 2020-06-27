@@ -7,7 +7,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Angry Pickles`,
-    titleTemplate: "%s · Accidental Pickle Connoisseur",
+    titleTemplate: "%s · Angry Pickles",
     description: `Making small batches of pickles using fresh stuff`,
     author: `Stephen Clark <stephenclark.dev>`,
     url: "https://www.angrypickles.com",
