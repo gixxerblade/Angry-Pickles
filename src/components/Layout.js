@@ -46,7 +46,7 @@ const Layout = ({ children }) => {
                     <StyledFooterLink to="/dashboard">©</StyledFooterLink>
                     {new Date().getFullYear()}&nbsp;
                     <StyleFooterA href="https://www.stephenclark.dev">
-                      Steve Clark
+                      Angry Pickles
                     </StyleFooterA>
                   </StyledFooter>
                 </StyledLayoutDiv>
