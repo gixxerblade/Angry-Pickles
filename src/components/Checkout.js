@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
-import { navigate } from "gatsby";
-import StripeCheckout from "react-stripe-checkout";
+
 import { CartContext } from "./CartProvider";
-import icon from "../images/ap_logo.png";
 import Spinner from "./Spinner";
+import StripeCheckout from "react-stripe-checkout";
+import icon from "../images/ap_logo.png";
+import { navigate } from "gatsby";
+
 const Checkout = () => {
   const { cart, count, total } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
@@ -13,9 +15,8 @@ const Checkout = () => {
       parent: sku.id,
       quantity,
     }));
-    let response;
     try {
-      response = await fetch("/.netlify/functions/orderCreate", {
+      const response = await fetch("/.netlify/functions/orderCreate", {
         method: "POST",
         body: JSON.stringify({
           token,
@@ -35,15 +36,17 @@ const Checkout = () => {
             },
           },
         }),
-      }).then((response) => response.json());
+      });
+      const { data } = await response.json();
+
+      // Empties local storage
+      localStorage.setItem("cart", "{}");
+      // Redirect to order summary page
+      navigate(`/order?id=${data.id}`);
+      setLoading(true);
     } catch (err) {
       alert(err.message);
     }
-    // Empties local storage
-    localStorage.setItem("cart", "{}");
-    // Redirect to order summary page
-    navigate(`/order?id=${response.data.id}`);
-    setLoading(true);
   };
   return (
     <StripeCheckout
