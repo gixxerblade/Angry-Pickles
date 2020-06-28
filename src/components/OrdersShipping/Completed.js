@@ -36,16 +36,25 @@ const Completed = () => {
                           <div>Quantity: {qty}</div>
                           <div>Order Status: {order.status}</div>
                           <div>
-                            Tracking#&nbsp;&nbsp;
                             <a
                               href={order.metadata.shipping_postage_label}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
+                              Label:&nbsp;&nbsp;{" "}
                               {order.metadata.shipping_tracking_code}
                             </a>
                           </div>
-                          ;
+                          <div>
+                            <a
+                              href={order.metadata.shipping_public_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Track Order:&nbsp;&nbsp;
+                              {order.metadata.shipping_tracking_code}
+                            </a>
+                          </div>
                         </div>
                       );
                     }

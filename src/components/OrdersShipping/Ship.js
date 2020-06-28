@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { useLocation } from "@reach/router";
 import styled from "styled-components";
 import { useFetch } from "../Fetcher";
@@ -6,9 +6,46 @@ import Spinner from "../Spinner";
 import { Link, navigate } from "gatsby-plugin-modal-routing";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
 import { Usps } from "@styled-icons/fa-brands/Usps";
+
+const packageReducer = (state, action) => {
+  switch (action.type) {
+    case "setPounds": {
+      return {
+        ...state,
+        weight: { ...state.weight, pounds: Number(action.pounds) },
+      };
+    }
+    case "setOunces": {
+      return { ...state, weight: { ...state.weight, ounces: action.ounces } };
+    }
+    case "setLength": {
+      return { ...state, size: { ...state.size, length: action.length } };
+    }
+    case "setWidth": {
+      return { ...state, size: { ...state.size, width: action.width } };
+    }
+    case "setHeight": {
+      return { ...state, size: { ...state.size, height: action.height } };
+    }
+  }
+};
+const initialPackageState = {
+  size: {
+    length: 0,
+    width: 0,
+    height: 0,
+  },
+  weight: {
+    pounds: 0, //TODO: convert function
+    ounces: 0,
+  },
+};
 const Ship = () => {
   // Set state when button is clicked to purchase shipping
-
+  const [packageState, dispatchPackageState] = useReducer(
+    packageReducer,
+    initialPackageState
+  );
   // Location information to send to useFetch custom hook to retrieve order information
   const location = useLocation();
   const id = location.state.id;
@@ -31,6 +68,9 @@ const Ship = () => {
     try {
       response = await fetch(`/.netlify/functions/createShipment${query}`, {
         queryStringParameters: { id: id },
+        /* body: JSON.stringify({
+          packageState,
+        }), */
         method: "GET",
       });
       const data = await response.json();
@@ -43,7 +83,7 @@ const Ship = () => {
     }
   };
   const goBack = () => {
-    navigate(-1, { replace: true });
+    navigate('/dashboard/new', { replace: true });
   };
   const onClick = (e) => {
     e.preventDefault();
@@ -132,6 +172,79 @@ const Ship = () => {
                   </a>
                 </p>
               )}
+            </Container>
+            <Container>
+              <input
+                type="number"
+                name="pounds"
+                min="0"
+                id=""
+                value={packageState.weight.pounds}
+                onChange={(event) => {
+                  dispatchPackageState({
+                    type: "setPounds",
+                    pounds: event.target.value,
+                  });
+                }}
+              />
+              pounds
+              <input
+                type="number"
+                min="0"
+                max="15"
+                name="ounces"
+                id=""
+                value={packageState.weight.ounces}
+                onChange={(event) => {
+                  dispatchPackageState({
+                    type: "setOunces",
+                    pounds: event.target.value,
+                  });
+                }}
+              />
+              ounces
+              <input
+                type="number"
+                min="0"
+                name="length"
+                id=""
+                value={packageState.size.length}
+                onChange={(event) => {
+                  dispatchPackageState({
+                    type: "setLength",
+                    pounds: event.target.value,
+                  });
+                }}
+              />
+              inches
+              <input
+                type="number"
+                min="0"
+                name="width"
+                id=""
+                value={packageState.size.width}
+                onChange={(event) => {
+                  dispatchPackageState({
+                    type: "setWidth",
+                    pounds: event.target.value,
+                  });
+                }}
+              />
+              inches
+              <input
+                type="number"
+                min="0"
+                name="height"
+                id=""
+                value={packageState.size.height}
+                onChange={(event) => {
+                  dispatchPackageState({
+                    type: "setHeight",
+                    pounds: event.target.value,
+                  });
+                }}
+              />
+              inches
             </Container>
             {shipmentData?.tracking_code ? (
               <PageBtn type="button" value="Go Back" onClick={goBack} />

@@ -14,18 +14,30 @@ const New = () => {
   // Will only display once promise is resolved
   if (unfulfilledOrder) {
     order = unfulfilledOrder.map((order) => {
+      const dateObj = new Date(order.created * 1000);
+      const date = dateObj.toLocaleString();
       if (
         order.status_transitions.fulfiled === null &&
-        order.status_transitions.paid !== null
+        order.status_transitions.paid !== null &&
+        order.status_transitions.canceled === null
       ) {
         const orderKey = order.url;
         return (
           <InvoiceBox>
             <Container className="container">
               <div className="left">
-                <div>{order.shipping.name}</div>
-                <div>Order#:&nbsp;{order.id}</div>
-                <div>Total: ${order.amount / 100}</div>
+                <div>
+                  <strong>{order.shipping.name}</strong>
+                </div>
+                <div>
+                  <strong>Date ordered:</strong>&nbsp;{date}
+                </div>
+                <div>
+                  <strong>Order#:</strong>&nbsp;{order.id}
+                </div>
+                <div>
+                  <strong>Total:</strong> ${order.amount / 100}
+                </div>
                 <div>
                   {order.items.map((item) => {
                     let desc = item.description;
@@ -34,9 +46,15 @@ const New = () => {
                     if (item.type === "sku") {
                       return (
                         <div key={orderKey}>
-                          <div>Sku: {sku}</div>
-                          <div>Item: {desc}</div>
-                          <div>Quantity: {qty}</div>
+                          <div>
+                            <strong>Sku:</strong> {sku}
+                          </div>
+                          <div>
+                            <strong>Item:</strong> {desc}
+                          </div>
+                          <div>
+                            <strong>Quantity:</strong> {qty}
+                          </div>
                         </div>
                       );
                     }

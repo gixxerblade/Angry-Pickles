@@ -35,6 +35,16 @@ Rename .env.development.sample to .env.development and fill with your Stripe API
 
 4.Start development servers
 
+You will need to install and configure the [Netlify CLI](https://docs.netlify.com/cli/get-started/): `npm install netlify-cli -g`
+
+To start the development servers for Gatsby & [Netlify Functions](https://github.com/netlify/netlify-lambda#usage) simply run [Netlify Dev](https://www.netlify.com/products/dev/).
+
+`netify dev`
+
+> Note: Make sure to use the proxied Netilfy Dev server and not the Gatsby server directly, >otherwise your Gatsby application will not be able to access your Netlify Functions.
+
+> Note: try deleting the cache (rm -rf .cache) if Gatsby's dev server fails to start.
+
 There are two development servers for this project:
 
 `gatsby serve` for our Gatsby site
@@ -67,9 +77,15 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 - [x] Add protected routes with Netlify Identity
 - [x] Load Completed component by fetching 'fulfilled` order status
 - [ ] Create shipping dashboard for Easypost integration
-- [ ] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
-- [ ] After item is shipped move to Completed component list
+- [x] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
+  - [ ] Functionality to cancel or refund order
+  - [ ] Shipping tracker information
+  - [ ] Add functionality to adjust shipping dimensions and weight
+- [x] After item is shipped move to Completed component list
 - [ ] Add Customers tab for marketing
+  - [ ] Add sorting by name, purchase date.
+  - [ ] Contact customer
+  - [ ] Collate customers to send marketing material
 - [ ] Add ability to enter coupon codes in Stripe modal
 - [ ] Add ability to select shipping speed in Stripe modal
 - [ ] Add route for users to create a login with Netlify Identity
@@ -79,4 +95,4 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 
 Thank you to [brxck](https://github.com/brxck) for making his starter available. Also to [njosefbeck](https://github.com/njosefbeck) for maintaining `gatsby-source-stripe`. Thank you to [Vets Who Code](https://vetswhocode.io/) for giving me the tools to create this site.
 
- A donation to [Vets Who Code](https://vetswhocode.io/) goes to helping veterans, like myself, in learning front end development and other coding skills. You can donate here: [VetsWhoCode](https://vetswhocode.io/donate) or go [here](https://hashflag.shop/) to buy some cool 😎 Vets Who Code swag.
+A donation to [Vets Who Code](https://vetswhocode.io/) goes to helping veterans, like myself, in learning front end development and other coding skills. You can donate here: [VetsWhoCode](https://vetswhocode.io/donate) or go [here](https://hashflag.shop/) to buy some cool 😎 Vets Who Code swag.
