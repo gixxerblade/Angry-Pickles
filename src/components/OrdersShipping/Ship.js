@@ -10,10 +10,7 @@ import { Usps } from "@styled-icons/fa-brands/Usps";
 const packageReducer = (state, action) => {
   switch (action.type) {
     case "setPounds": {
-      return {
-        ...state,
-        weight: { ...state.weight, pounds: Number(action.pounds) },
-      };
+      return { ...state, weight: { ...state.weight, pounds: action.pounds } };
     }
     case "setOunces": {
       return { ...state, weight: { ...state.weight, ounces: action.ounces } };
@@ -61,16 +58,23 @@ const Ship = () => {
   const [loadShipping, setLoadShipping] = useState(false);
   const [shipmentData, setShipmentData] = useState({});
   const [shipError, setShipError] = useState(null);
-  const fetchData = async (id) => {
+
+  // Buy shipping function
+  const buyShipping = async (id) => {
     //Create an argument to send to createShipment.js function
     const query = `?id=${id}`;
     let response;
     try {
+      // fetch serverless function to buy shipping
       response = await fetch(`/.netlify/functions/createShipment${query}`, {
         queryStringParameters: { id: id },
-        /* body: JSON.stringify({
-          packageState,
-        }), */
+        // TODO: send package dimensions and weight in case it is different than recommended
+        //body: JSON.stringify({
+        //  packageState,
+
+        // }),
+        //method: "POST",
+
         method: "GET",
       });
       const data = await response.json();
@@ -83,12 +87,12 @@ const Ship = () => {
     }
   };
   const goBack = () => {
-    navigate('/dashboard/new', { replace: true });
+    navigate("/dashboard/new", { replace: true });
   };
   const onClick = (e) => {
     e.preventDefault();
     setLoadShipping(true);
-    fetchData(id);
+    buyShipping(id);
   };
 
   // Table of ordered items
@@ -124,128 +128,141 @@ const Ship = () => {
           <ShippingSpinner />
         ) : (
           <InvoiceBox>
-            <Container>
-              <h2>Shipping information for order: #{data.id}</h2>
-              <h4>Ship To:</h4>
-              <address>
-                <span>{data.shipping.name}</span>
-                <br />
-                <span>{data.shipping.address.line1}</span>
-                <br />
-                <span>
-                  {data.shipping.address.city}, {data.shipping.address.state}
+            <ContentContainer>
+              <Container>
+                <h2>Shipping information for order: #{data.id}</h2>
+                <h4>Ship To:</h4>
+                <address>
+                  <span>{data.shipping.name}</span>
+                  <br />
+                  <span>{data.shipping.address.line1}</span>
+                  <br />
+                  <span>
+                    {data.shipping.address.city}, {data.shipping.address.state}
+                    &nbsp;
+                    {data.shipping.address.postal_code}
+                  </span>
+                  <br />
+                </address>
+                <h4>
+                  <Usps size="35" style={{ color: "#004B87" }} />
                   &nbsp;
-                  {data.shipping.address.postal_code}
-                </span>
-                <br />
-              </address>
-              <h4>
-                <Usps size="35" style={{ color: "#004B87" }} />
-                &nbsp;
-                {shippingMethod}
-              </h4>
-              <h4>Items Ordered:</h4>
-              <Div>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Item</th>
-                      <th>Qty</th>
-                      <th>Price</th>
-                    </tr>
-                  </thead>
-                  <tbody>{orderedItems}</tbody>
-                </Table>
-              </Div>
-              {loadShipping ? (
-                <Spinner />
-              ) : (
-                <p>
-                  USPS Tracking #: &nbsp;&nbsp;
-                  <a
-                    title="Click to print label (opens in another window)"
-                    href={shipmentData.shipping_label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {shipmentData.tracking_code}
-                  </a>
-                </p>
-              )}
-            </Container>
-            <Container>
-              <input
-                type="number"
-                name="pounds"
-                min="0"
-                id=""
-                value={packageState.weight.pounds}
-                onChange={(event) => {
-                  dispatchPackageState({
-                    type: "setPounds",
-                    pounds: event.target.value,
-                  });
-                }}
-              />
-              pounds
-              <input
-                type="number"
-                min="0"
-                max="15"
-                name="ounces"
-                id=""
-                value={packageState.weight.ounces}
-                onChange={(event) => {
-                  dispatchPackageState({
-                    type: "setOunces",
-                    pounds: event.target.value,
-                  });
-                }}
-              />
-              ounces
-              <input
-                type="number"
-                min="0"
-                name="length"
-                id=""
-                value={packageState.size.length}
-                onChange={(event) => {
-                  dispatchPackageState({
-                    type: "setLength",
-                    pounds: event.target.value,
-                  });
-                }}
-              />
-              inches
-              <input
-                type="number"
-                min="0"
-                name="width"
-                id=""
-                value={packageState.size.width}
-                onChange={(event) => {
-                  dispatchPackageState({
-                    type: "setWidth",
-                    pounds: event.target.value,
-                  });
-                }}
-              />
-              inches
-              <input
-                type="number"
-                min="0"
-                name="height"
-                id=""
-                value={packageState.size.height}
-                onChange={(event) => {
-                  dispatchPackageState({
-                    type: "setHeight",
-                    pounds: event.target.value,
-                  });
-                }}
-              />
-              inches
-            </Container>
+                  {shippingMethod}
+                </h4>
+                <h4>Items Ordered:</h4>
+                <Div>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>{orderedItems}</tbody>
+                  </Table>
+                </Div>
+                {loadShipping ? (
+                  <Spinner />
+                ) : (
+                  <p>
+                    USPS Tracking #: &nbsp;&nbsp;
+                    <a
+                      title="Click to print label (opens in another window)"
+                      href={shipmentData.shipping_label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {shipmentData.tracking_code}
+                    </a>
+                  </p>
+                )}
+              </Container>
+              <LabelsContainer>
+                <h3 style={{ textAlign: "center" }}>Shipping Dimensions</h3>
+                <LabelContainer>
+                  <label for="pounds">Pounds</label>
+                  <input
+                    type="number"
+                    name="pounds"
+                    min="0"
+                    id=""
+                    value={packageState.weight.pounds}
+                    onChange={(event) => {
+                      dispatchPackageState({
+                        type: "setPounds",
+                        pounds: event.target.value,
+                      });
+                    }}
+                  />
+                </LabelContainer>
+                <LabelContainer>
+                  <label for="ounces">Ounces</label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="15"
+                    name="ounces"
+                    id=""
+                    value={packageState.weight.ounces}
+                    onChange={(event) => {
+                      dispatchPackageState({
+                        type: "setOunces",
+                        pounds: event.target.value,
+                      });
+                    }}
+                  />
+                </LabelContainer>
+                <LabelContainer>
+                  <label for="length">Length(in.)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    name="length"
+                    id=""
+                    value={packageState.size.length}
+                    onChange={(event) => {
+                      dispatchPackageState({
+                        type: "setLength",
+                        pounds: event.target.value,
+                      });
+                    }}
+                  />
+                </LabelContainer>
+                <LabelContainer>
+                  <label for="width">Width(in.)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    name="width"
+                    id=""
+                    value={packageState.size.width}
+                    onChange={(event) => {
+                      dispatchPackageState({
+                        type: "setWidth",
+                        pounds: event.target.value,
+                      });
+                    }}
+                  />
+                </LabelContainer>
+                <LabelContainer>
+                  <label for="height">Height(in.)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    name="height"
+                    id=""
+                    value={packageState.size.height}
+                    onChange={(event) => {
+                      dispatchPackageState({
+                        type: "setHeight",
+                        pounds: event.target.value,
+                      });
+                    }}
+                  />
+                </LabelContainer>
+              </LabelsContainer>
+            </ContentContainer>
             {shipmentData?.tracking_code ? (
               <PageBtn type="button" value="Go Back" onClick={goBack} />
             ) : (
@@ -263,6 +280,46 @@ const Ship = () => {
 };
 
 export default Ship;
+
+const LabelsContainer = styled.div`
+  border: solid 1px #ccc
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  margin: 0.5rem;
+`;
+
+const LabelContainer = styled.div`
+  margin: 0.5rem;
+  position: relative;
+  padding: 0 0.5rem;
+  border: solid 1px #ccc;
+  & input {
+    border: none;
+    font-size: 1rem;
+    outline: 0;
+    padding: 0.25rem 0 0.625rem;
+  }
+  & label {
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+  }
+  & input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  & input[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
+
+const ContentContainer = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
 const PageBtn = styled.input`
   background-color: #44c767;
   border-radius: 1rem;
@@ -294,6 +351,7 @@ const Container = styled.div`
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
+  margin: 0.5rem;
 `;
 const InvoiceBox = styled.div`
   word-wrap: break-word;

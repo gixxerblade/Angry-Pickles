@@ -15,46 +15,79 @@ const Completed = () => {
       if (order.status_transitions.fulfiled && order.status_transitions.paid) {
         const orderKey = order.url;
 
+        //Need the date
+        const dateObj = new Date(order.created * 1000);
+
+        //Date options
+        const options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        };
+
+        const date = dateObj.toLocaleString("en", options);
         return (
           <InvoiceBox>
             <Container className="container">
               <div className="left">
-                <div>{order.shipping.name}</div>
-                <div>Order#:&nbsp;{order.id}</div>
-                <div>Total: ${order.amount / 100}</div>
+                <h3>
+                  <strong>{order.shipping.name}</strong>
+                </h3>
                 <div>
+                  <strong>Date ordered: </strong>
+                  {date}
+                </div>
+                <div>
+                  <strong>Order#:</strong>&nbsp;{order.id}
+                </div>
+                <div>
+                  <strong>Total:</strong> ${order.amount / 100}
+                </div>
+                <div>
+                  <strong>Order Status:</strong> {order.status}
+                </div>
+
+                <div>
+                  <div>
+                    <a
+                      href={order.metadata.shipping_postage_label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <strong>Label:</strong>&nbsp;&nbsp;{" "}
+                      {order.metadata.shipping_tracking_code}
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      href={order.metadata.shipping_public_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <strong>Track Order:</strong>&nbsp;&nbsp;
+                      {order.metadata.shipping_tracking_code}
+                    </a>
+                  </div>
+                  <br />
+                  <h3>Order</h3>
+                  <hr style={{borderTop: "3px double #8c8b8b"}} />
                   {order.items.map((item) => {
                     let desc = item.description;
                     let qty = item.quantity;
                     let sku = item.parent;
-                    let metadata = item.metadata;
                     if (item.type === "sku") {
                       return (
                         <div key={orderKey}>
-                          <div>Sku: {sku}</div>
-                          <div>Item: {desc}</div>
-                          <div>Quantity: {qty}</div>
-                          <div>Order Status: {order.status}</div>
                           <div>
-                            <a
-                              href={order.metadata.shipping_postage_label}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Label:&nbsp;&nbsp;{" "}
-                              {order.metadata.shipping_tracking_code}
-                            </a>
+                            <strong>Sku:</strong> {sku}
                           </div>
                           <div>
-                            <a
-                              href={order.metadata.shipping_public_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Track Order:&nbsp;&nbsp;
-                              {order.metadata.shipping_tracking_code}
-                            </a>
+                            <strong>Item:</strong> {desc}
                           </div>
+                          <div>
+                            <strong>Quantity:</strong> {qty}
+                          </div>
+                        <hr/>
                         </div>
                       );
                     }

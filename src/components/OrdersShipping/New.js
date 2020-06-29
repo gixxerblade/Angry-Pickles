@@ -7,15 +7,23 @@ const New = () => {
   // Load data from listOrders.js lambda function
   const { data, loading } = useContext(OrderContext);
 
-  //console.log(data.data);
   const { data: unfulfilledOrder } = data;
-  // console.log(newOrder);
+
   let order;
   // Will only display once promise is resolved
   if (unfulfilledOrder) {
     order = unfulfilledOrder.map((order) => {
+      //Need the date
       const dateObj = new Date(order.created * 1000);
-      const date = dateObj.toLocaleString();
+
+      //Date options
+      const options = {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+
+      const date = dateObj.toLocaleString("en", options);
       if (
         order.status_transitions.fulfiled === null &&
         order.status_transitions.paid !== null &&
@@ -67,7 +75,7 @@ const New = () => {
                   value="Create New Shipment"
                   onClick={(e) => {
                     e.preventDefault;
-                    navigate(`dashboard/ship`, {
+                    navigate(`/dashboard/ship`, {
                       state: { id: order.id, modal: false },
                     });
                   }}
