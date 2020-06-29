@@ -24,7 +24,7 @@ const Completed = () => {
           month: "short",
           day: "numeric",
         };
-
+        const fulfilled = order.status
         const date = dateObj.toLocaleString("en", options);
         return (
           <InvoiceBox>
@@ -44,7 +44,7 @@ const Completed = () => {
                   <strong>Total:</strong> ${order.amount / 100}
                 </div>
                 <div>
-                  <strong>Order Status:</strong> {order.status}
+                  <strong>Order Status:</strong> {fulfilled.toUpperCase()}
                 </div>
 
                 <div>
@@ -69,7 +69,7 @@ const Completed = () => {
                     </a>
                   </div>
                   <br />
-                  <h3>Order</h3>
+                  <h3 >Order</h3>
                   <hr style={{borderTop: "3px double #8c8b8b"}} />
                   {order.items.map((item) => {
                     let desc = item.description;

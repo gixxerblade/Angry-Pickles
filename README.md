@@ -67,7 +67,7 @@ Deploy to Netlify
 
 If you want to deploy somewhere other than Netlify, you'll have to find another place to deploy the serverless functions in `/functions`, ex. AWS Lambda.
 
-## TODO
+## TODOs
 
 - [x] Add About page
 - [x] Add blog for updates
@@ -76,20 +76,28 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 - [ ] Make admin area responsive
 - [x] Add protected routes with Netlify Identity
 - [x] Load Completed component by fetching 'fulfilled` order status
-- [ ] Create shipping dashboard for Easypost integration
-- [x] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
+- [x] Create shipping dashboard for Easypost integration
+- [ ] New order page
   - [ ] Functionality to cancel or refund order
-  - [ ] Shipping tracker information
+- [x] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
+  - [x] Shipping tracker information
   - [ ] Add functionality to adjust shipping dimensions and weight
+  - [ ] Add a “Generate new rates” feature to the dashboard
 - [x] After item is shipped move to Completed component list
 - [ ] Add Customers tab for marketing
   - [ ] Add sorting by name, purchase date.
   - [ ] Contact customer
-  - [ ] Collate customers to send marketing material
+  - [ ] Send marketing material/coupons
+- [ ] Add Products page to dashboard
+  - [ ] Ability to add products
+  - [ ] Ability to update inventory
+  - [ ] Add photos to products
+- [ ] Insert Instagram AngryPickleGuy account into Updates page
 - [ ] Add ability to enter coupon codes in Stripe modal
 - [ ] Add ability to select shipping speed in Stripe modal
 - [ ] Add route for users to create a login with Netlify Identity
 - [ ] Use Jest to create testing for site
+- [ ] Test Stripe inventory management for low items
 
 ## Acknowledgments
 
