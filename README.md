@@ -77,12 +77,13 @@ If you want to deploy somewhere other than Netlify, you'll have to find another 
 - [x] Add protected routes with Netlify Identity
 - [x] Load Completed component by fetching 'fulfilled` order status
 - [x] Create shipping dashboard for Easypost integration
+- [ ] Create a Stripe webhook for Twilio to send notification when a new order is received
 - [ ] New order page
   - [ ] Functionality to cancel or refund order
 - [x] Add Easypost shipping API to request shipping rates [Link](https://github.com/EasyPost/easypost-node)
   - [x] Shipping tracker information
   - [ ] Add functionality to adjust shipping dimensions and weight
-  - [ ] Add a “Generate new rates” feature to the dashboard
+  - [ ] Add a “Generate new rates” feature to the shipping dashboard
 - [x] After item is shipped move to Completed component list
 - [ ] Add Customers tab for marketing
   - [ ] Add sorting by name, purchase date.

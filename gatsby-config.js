@@ -21,6 +21,12 @@ module.exports = {
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-react-helmet`,
     {
+      resolve: 'gatsby-plugin-html-attributes',
+      options: {
+        lang: 'en'
+      }
+    },
+    {
       resolve: `gatsby-plugin-modal-routing`,
       options: {
         // A selector to set react-modal's app root to, default is `#___gatsby`
