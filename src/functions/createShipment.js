@@ -19,33 +19,35 @@ const errorResponse = (err, callback) => {
       message: err.message,
     }),
   };
-
   if (typeof callback === "function") {
     callback(null, response);
   }
+  console.log("statusCode:", response && response.statusCode);
 };
 
 module.exports.handler = async (event, context, callback) => {
   // Send over the order id & selected_shipping_method in the event query string from Ship.js
   const id = event.queryStringParameters.id;
-  //const requestBody = JSON.parse(event.body);
-  //console.log(requestBody)
+  /* const requestBody = JSON.parse(event.body);
+  const { packageState } = requestBody; */
+
   // The Stripe Order id is automatically sent to EasyPost as a Shipment reference
   // according to Easypost => https://www.easypost.com/stripe-relay#easypost_stripe_relay-rb-1
   try {
     //Retrieve Stripe order data
     const order = await stripe.orders.retrieve(id);
-
+    const { selected_shipping_method } = order;
     //The Stripe Order.id is automatically sent to EasyPost as a Shipment reference
     // According to https://www.easypost.com/stripe-relay
     const shipments = await api.Shipment.retrieve(id);
+    //console.log(shipments);
+
     //Stripe order should already have a "selected_shipping_method" otherwise default to lowest rate
     let selectedRate;
-    order.selected_shipping_method &&
-    order.selected_shipping_method.startsWith("rate_")
-      ? (selectedRate = await order.selected_shipping_method)
+    selected_shipping_method && selected_shipping_method.startsWith("rate_")
+      ? (selectedRate = await selected_shipping_method)
       : (selectedRate = await shipments.lowest_rate(["USPS"]));
-    console.log("RATE::: ", selectedRate);
+        
     // Buy this rate
     await shipments.buy(selectedRate);
     await shipments.convertLabelFormat("PDF");
@@ -78,6 +80,6 @@ module.exports.handler = async (event, context, callback) => {
     console.log(`Unable to fulfill Order ${id}: `, e.message);
     errorResponse(e, callback);
   } finally {
-    console.log("Completed transaction");
+    console.log("End transaction");
   }
 };
