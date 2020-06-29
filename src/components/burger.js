@@ -7,6 +7,7 @@ const Burger = () => {
     <>
       <button
         htmlFor="Menu"
+        aria-label="burger menu"
         className={`burger ${opened ? "active" : ""}`}
         onClick={() => setOpened(!opened)}
       >
