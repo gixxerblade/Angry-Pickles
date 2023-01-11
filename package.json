@@ -32,7 +32,7 @@
     "gatsby-source-dev": "^0.1.4",
     "gatsby-source-filesystem": "^2.3.3",
     "gatsby-source-stripe": "^3.0.7",
-    "gatsby-transformer-remark": "^2.8.8",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.5.2",
     "gsap": "^3.2.6",
     "netlify-identity-widget": "^1.6.0",
